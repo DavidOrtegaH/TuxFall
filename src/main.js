@@ -2,6 +2,7 @@ import {createGame,move,step} from './model.js';
 import {render,paletteAt} from './render.js';
 import {createPersistence} from './persistence.js';
 import {initializeLanguage} from './i18n.js';
+import {playIcon,pauseIcon,retryIcon} from './icons.js';
 const $=id=>document.getElementById(id),ctx=$('game').getContext('2d');
 let deviceStorage=null;
 try{deviceStorage=localStorage;}catch{}
@@ -22,8 +23,6 @@ setInputMode(touchInput.matches?'touch':'keyboard');
 touchInput.addEventListener('change',()=>setInputMode(touchInput.matches?'touch':'keyboard'));
 document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.pointerType==='pen')setInputMode('touch');});
 const boostKeys=new Set();let touchBoost=false;
-const playIcon='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 6 27 16 11 26Z" fill="currentColor"/></svg>';
-const retryIcon='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 12a11 11 0 1 0 1 9M26 4v8h-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"/></svg>';
 let previousStatus;
 function announce(text){$('announcement').textContent=text;}
 function clearBoost(){boostKeys.clear();touchBoost=false;game.boost=false;}
@@ -40,7 +39,7 @@ function sync(){
  previousStatus=game.status;
  $('arcade').dataset.status=game.status;
  $('pause').disabled=game.status==='ready'||over;
- $('pause').textContent=paused?'▷':'Ⅱ';$('pause').setAttribute('aria-label',t(paused?'resumeGame':'pauseGame'));
+ $('pause').innerHTML=paused?playIcon:pauseIcon;$('pause').setAttribute('aria-label',t(paused?'resumeGame':'pauseGame'));
  $('overlay').hidden=game.status==='playing';
  $('overlay-label').textContent=t(over?'endLabel':paused?'paused':'playAction');
  $('overlay-label').hidden=game.status==='playing';

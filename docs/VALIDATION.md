@@ -51,3 +51,10 @@ Fecha: 13 de noviembre de 2026. Esto no declara una versión estable ni sustituy
 - Un único enlace «Créditos y Licencia». Retirados los párrafos solicitados de créditos y privacidad en ambos idiomas; se conservan atribución de Tux, LICENSE y NOTICE originales.
 - «Configurar cookies» distingue la fecha móvil de la cookie (hasta 400 días desde la visita/guardado), el permiso de 720 días no renovado automáticamente y la copia local sin caducidad de aplicación. Informa de nuevo permiso para continuar y posible borrado anticipado; no promete conservación perpetua. Idioma explicado como preferencia independiente.
 - Persistencia sin cambios de código ni pérdida del récord. Se mantienen las pruebas de renovación, caducidad, reaceptación y recuperación.
+
+## Revisión v8: jerarquía del HUD y centrado
+
+- Etiquetas a 12 px en sans serif, peso 600 y color secundario; números conservan 19 px y peso 700. Marcador dentro de su altura de 64 px, sin entrar en el canvas.
+- Iconos SVG compartidos para Play, pausa y reintento, incluido reanudar en el HUD. Eliminado padding que hacía exceder el SVG de 38 px en el botón compacto de 58 px.
+- Navegador: centros del dibujo y SVG de Play coinciden con el botón (desviación x/y = 0 px). Pausa y reintento también dan 0 px en ambos ejes. Verificado además un viewport de 320×568 mediante un marco temporal: botón de 58×58 e icono centrado a 0 px. Marco de QA eliminado tras comprobarlo.
+- Las 30 pruebas pasan, comprobación sintáctica y build correctos. Conservados nombres accesibles, traducciones y lógica de juego.
