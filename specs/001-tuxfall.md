@@ -44,6 +44,10 @@ Fuentes de R23: límite de cookies de Chrome (https://developer.chrome.com/blog/
 - R33: un único enlace «Créditos y Licencia» al documento común. Retirar en ambos idiomas el párrafo de no afiliación y recursos ajenos, incluido su enlace de avisos. Mantener autoría, crédito de Larry Ewing/GIMP, licencia y avisos originales distribuidos. Retirar de privacidad el párrafo sobre migración desde los 180 días, sin cambiar el comportamiento de persistencia.
 - R34: «Configurar cookies» explica que renovar desplaza la fecha hasta 400 días desde la visita/guardado, limitada por el permiso de 720 días que no se prolonga por visitar. Al caducar el permiso se solicita otra aceptación; el récord local permanece sin caducidad del juego y se recupera al aceptar si sigue disponible. No garantizar conservación: navegador/usuario pueden borrar datos antes. Rechazar elimina las dos copias. Aplicar la misma claridad a ambos idiomas y a privacidad.
 
+## Revisión v8 · marcador e iconos centrados
+- R35: etiquetas del HUD en sans serif de sistema a 12 px, peso 600 y espaciado moderado. Números a 19 px y peso 700 conservan mayor tamaño y protagonismo. Sin aumentar la altura de 64 px ni invadir el canvas; comprobar español e inglés.
+- R36: Play, pausa, reanudar y reintento usan SVG en un mismo encuadre simétrico. Centrar el dibujo y el SVG en el cuadrado; eliminar caracteres tipográficos de pausa y padding que provoque desbordamiento en tamaños compactos. Mantener nombres accesibles y tamaños de botón existentes.
+
 ## Distribución y mantenimiento
 - R14: proyecto personal de David Ortega Hoyas, con código público bajo PolyForm Noncommercial 1.0.0 y Required Notice de autoría, preservando derechos de terceros. No se aceptan contribuciones externas. No anunciar como open source OSI.
 - R15: `main` principal; `features` desarrollo; `develop` integración; `release` estabilización/publicación. Versión en desarrollo 0.1.0, sin etiqueta 1.0 hasta terminarla. CI en todas las ramas; despliegue manual desde `release`.

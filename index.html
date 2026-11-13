@@ -14,7 +14,7 @@
 <body class="game-page">
   <main class="arcade" id="arcade" data-status="ready" data-input="keyboard" aria-label="Juego TuxFall" data-i18n-aria="gameLabel">
     <header class="hud" data-i18n-aria="scoreboard" aria-label="Marcador">
-      <button id="pause" class="pause" aria-label="Pausar partida" disabled data-i18n-aria="pauseGame">Ⅱ</button>
+      <button id="pause" class="pause" aria-label="Pausar partida" disabled data-i18n-aria="pauseGame"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M8 7h5v18H8zm11 0h5v18h-5z" fill="currentColor"/></svg></button>
       <div class="hud-scores">
         <div><small data-i18n="points">PUNTOS</small><output id="score" aria-live="off">00000</output></div>
         <div><small data-i18n="best">RÉCORD</small><output id="best" aria-live="off">00000</output></div>
@@ -29,7 +29,7 @@
           <h1 class="logo"><img src="./src/tuxfall.svg" width="246" height="42" alt="TuxFall"></h1>
           <p class="overlay-label" id="overlay-label">Jugar</p>
           <button class="primary" id="start" aria-label="Iniciar partida" data-i18n-aria="startGame">
-            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 6 27 16 11 26Z" fill="currentColor"/></svg>
+            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M9 6 23 16 9 26Z" fill="currentColor"/></svg>
           </button>
           <div class="menu-stats">
             <div><span data-i18n="yourBest">TU RÉCORD</span><output id="menu-best">00000</output><span class="record-result" id="menu-record-notice" data-i18n="newRecord" hidden>¡Nuevo récord!</span></div>

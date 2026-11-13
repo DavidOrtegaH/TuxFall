@@ -52,7 +52,7 @@ button:active:enabled { transform: translateY(2px); }
 .arcade:not([data-status="playing"]) { background: #eeeee7; }
 .pause { width: 48px; height: 48px; border: 1px solid #abad9f; background: transparent; font-size: 19px; }
 .hud-scores { display: flex; gap: 20px; text-align: right; pointer-events: none; }
-.hud small { display: block; font-size: 8px; letter-spacing: 1.5px; margin-bottom: 4px; }
+.hud small { display: block; font: 600 12px/1.2 system-ui, -apple-system, 'Segoe UI', sans-serif; letter-spacing: .04em; color: #50544a; margin-bottom: 4px; }
 .hud output { font-size: 19px; letter-spacing: 2px; font-weight: bold; }
 #record-notice { position: absolute; top: 100%; right: 10px; padding: 9px; background: #24251f; color: #fff; font-size: 10px; pointer-events: none; }
 .viewport { position: relative; flex: 1; min-height: 0; background: var(--sky); display: grid; place-items: center; }
@@ -165,3 +165,8 @@ dialog { font-size: 16px; }
 .menu-stats .record-result { margin: 8px 0 0; font-size: 14px; letter-spacing: 0; font-weight: 700; }
 @media (max-height: 650px) { .menu-main .logo { margin-bottom: 26px; } }
 @media (max-height: 480px) { .menu-main .logo { margin-bottom: 24px; } }
+
+/* No font baseline or oversized padding can offset an action glyph. */
+.primary, .pause { display: grid; place-items: center; padding: 0; line-height: 0; flex-shrink: 0; }
+.primary svg, .pause svg { display: block; margin: 0; }
+.pause svg { width: 26px; height: 26px; }
