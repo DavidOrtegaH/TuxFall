@@ -7,7 +7,7 @@ export const messages={
   cookieSettings:'Configurar cookies',credits:'Créditos',license:'Licencia',cookieQuestion:'¿Guardamos tu récord?',cookieSummary:'Récord local sin caducidad del juego y cookie de respaldo de hasta 400 días, renovable. Puedes jugar sin aceptar. La elección se recuerda 720 días. Al aceptar recuperamos tu récord anterior, si sigue disponible.',cookiePolicy:'Política de cookies',accept:'Aceptar',reject:'Rechazar',rejectDelete:'Rechazar y borrar',close:'Cerrar',
   cookieDialogTitle:'Tu récord, tú decides.',cookieDialogBody:'Tu récord se guarda localmente sin caducidad del juego y con una cookie de respaldo renovable de hasta 400 días. El navegador puede borrar los datos. Al rechazar se eliminan ambas copias; el récord de esta visita sigue en memoria. Tu elección se conserva 720 días mediante almacenamiento técnico.',cookieConsult:'Consultar política de cookies',cookieOn:'Guardado del récord activado.',cookieOff:'Guardado del récord desactivado.',languageStorage:'El idioma que elijas se recuerda aparte mediante una cookie funcional y almacenamiento local. Rechazar guardar el récord no cambia el idioma.',
   playingAnnouncement:'Partida en marcha.',pausedAnnouncement:'Partida pausada.',savedAnnouncement:'Récord guardado sin caducidad impuesta por el juego.',blockedAnnouncement:'El navegador no permite guardar el récord. Se conservará durante esta visita.',rejectedAnnouncement:'Guardado desactivado. Récord persistente eliminado; puedes seguir jugando.',recordAnnouncement:'¡Nuevo récord! Has superado {best} puntos.',endAnnouncement:'Fin de partida. {score} puntos.',
-  languageLabel:'Idioma',languageChanged:'Idioma cambiado a español.',description:'TuxFall: un juego pixelado de caída libre. Tres carriles, un pingüino y un paracaídas con los segundos contados.',policyDescription:'Cookies, privacidad y preferencias de TuxFall.',aboutDescription:'Autoría, créditos y licencia de uso no comercial de TuxFall.'
+  languageLabel:'Idioma',languageSpanish:'Cambiar a español',languageEnglish:'Cambiar a inglés',languageChanged:'Idioma cambiado a español.',description:'TuxFall: un juego pixelado de caída libre. Tres carriles, un pingüino y un paracaídas con los segundos contados.',policyDescription:'Cookies, privacidad y preferencias de TuxFall.',aboutDescription:'Autoría, créditos y licencia de uso no comercial de TuxFall.'
  },
  en:{
   gameLabel:'TuxFall game',scoreboard:'Scoreboard',points:'SCORE',best:'BEST',yourBest:'YOUR BEST',thisRun:'THIS RUN',newRecord:'New best!',paused:'PAUSED',endLabel:'FLIGHT OVER',
@@ -16,7 +16,7 @@ export const messages={
   cookieSettings:'Cookie settings',credits:'Credits',license:'License',cookieQuestion:'Save your best score?',cookieSummary:'Your best score has no game-imposed local expiry, with a renewable backup cookie lasting up to 400 days. You can play without accepting. Your choice is remembered for 720 days. Accepting recovers your previous best, if still available.',cookiePolicy:'Cookie policy',accept:'Accept',reject:'Reject',rejectDelete:'Reject and delete',close:'Close',
   cookieDialogTitle:'Your score, your choice.',cookieDialogBody:'Your best score is stored locally without a game-imposed expiry, with a renewable backup cookie lasting up to 400 days. Your browser may delete the data. Rejecting deletes both copies; this visit’s best remains in memory. Your choice is stored for 720 days using functional storage.',cookieConsult:'Read the cookie policy',cookieOn:'Best-score storage is enabled.',cookieOff:'Best-score storage is disabled.',languageStorage:'Your chosen language is remembered separately using a functional cookie and local storage. Rejecting best-score storage does not change the language.',
   playingAnnouncement:'Game started.',pausedAnnouncement:'Game paused.',savedAnnouncement:'Best score saved without a game-imposed expiry.',blockedAnnouncement:'Your browser does not allow saving scores. Your best will remain during this visit.',rejectedAnnouncement:'Score storage disabled and the saved score deleted. You can keep playing.',recordAnnouncement:'New best! You passed {best} points.',endAnnouncement:'Game over. {score} points.',
-  languageLabel:'Language',languageChanged:'Language changed to English.',description:'TuxFall: a pixel-art free-fall game. Three lanes, one penguin and a parachute running out of time.',policyDescription:'TuxFall cookies, privacy and preferences.',aboutDescription:'TuxFall authorship, credits and noncommercial license.'
+  languageLabel:'Language',languageSpanish:'Switch to Spanish',languageEnglish:'Switch to English',languageChanged:'Language changed to English.',description:'TuxFall: a pixel-art free-fall game. Three lanes, one penguin and a parachute running out of time.',policyDescription:'TuxFall cookies, privacy and preferences.',aboutDescription:'TuxFall authorship, credits and noncommercial license.'
  }
 };
 export function translate(language,key,values={}){const text=messages[language]?.[key];if(typeof text!=='string')throw new Error(`Missing translation: ${language}.${key}`);return text.replace(/\{(\w+)\}/g,(_,name)=>String(values[name]??''));}
@@ -26,13 +26,13 @@ export function applyLanguage(doc,language){
  for(const el of doc.querySelectorAll('[data-i18n]'))el.textContent=t(el.dataset.i18n);
  for(const [data,attribute] of [['data-i18n-aria','aria-label'],['data-i18n-title','title'],['data-i18n-content','content']])for(const el of doc.querySelectorAll(`[${data}]`))el.setAttribute(attribute,t(el.getAttribute(data)));
  for(const el of doc.querySelectorAll('[data-locale-section]'))el.hidden=el.dataset.localeSection!==language;
- for(const select of doc.querySelectorAll('[data-language-select]'))select.value=language;
+ for(const button of doc.querySelectorAll('[data-language-button]'))button.setAttribute('aria-pressed',String(button.dataset.languageButton===language));
 }
 export function initializeLanguage(doc,location,local=null,onChange=()=>{}){
  const preference=createLanguagePreference(doc,location,local);
  const apply=()=>{applyLanguage(doc,preference.value);onChange(preference.value);};
  applyLanguage(doc,preference.value);
- for(const select of doc.querySelectorAll('[data-language-select]'))select.addEventListener('change',()=>{preference.set(select.value);apply();});
+ for(const button of doc.querySelectorAll('[data-language-button]'))button.addEventListener('click',()=>{preference.set(button.dataset.languageButton);apply();});
  doc.defaultView?.addEventListener('storage',event=>{if(event.key===LANGUAGE_KEY){preference.refresh();apply();}});
  return {t:(key,values)=>translate(preference.value,key,values),get language(){return preference.value;}};
 }

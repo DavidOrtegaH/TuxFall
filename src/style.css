@@ -146,10 +146,16 @@ dialog .cookie-actions { margin: 24px 0 16px; }
 .cookie-banner { font-size: 14px; line-height: 1.6; }
 .cookie-actions button, #cookie-close { font-size: 16px; }
 dialog { font-size: 16px; }
-.language-control { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 14px; color: #22241f; margin: 0 0 18px; }
-.language-control select { font: inherit; background: #fafaf3; color: #22241f; border: 1px solid #abad9f; min-height: 42px; padding: 7px 30px 7px 12px; cursor: pointer; }
 .policy-page { padding: 24px; }
 .policy-page article, .page-language { max-width: 760px; margin: 28px auto; font-size: 16px; line-height: 1.8; }
 .policy-page h1 { font: 700 32px/1.2 system-ui, sans-serif; letter-spacing: -.02em; }
 .policy-page h2 { font-size: 23px; line-height: 1.4; margin-top: 30px; }
-.page-language .language-control { justify-content: flex-end; }
+
+.language-picker { display:flex; justify-content:center; gap:12px; margin:18px 0 0; }
+.language-flag { --flag-paper:#eeeee7; position:relative; display:grid; place-items:center; width:66px; height:50px; padding:9px 12px; border:1px solid transparent; background:transparent; color:#22241f; }
+.language-flag svg { display:block; width:36px; height:24px; overflow:hidden; border:1px solid currentColor; }
+.flag-paper { fill:var(--flag-paper); }
+.language-flag[aria-pressed="true"] { border-color:#22241f; background:#fafaf3; --flag-paper:#fafaf3; }
+.language-flag[aria-pressed="true"]::after { content:''; position:absolute; bottom:3px; left:25px; width:14px; height:2px; background:currentColor; }
+.language-flag:hover { --flag-paper:#d6d8cc; }
+.page-language .language-picker { justify-content:flex-end; margin:0; }

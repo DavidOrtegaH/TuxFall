@@ -38,3 +38,9 @@ Fecha: 13 de noviembre de 2026. Esto no declara una versión estable ni sustituy
 - Navegador: título `TuxFall`; menús sans serif y guía a 14 px. Cambio ES→EN, persistencia tras recargar, diálogo de cookies, fin de partida y páginas de privacidad/créditos en inglés; cambio desde otra página actualiza el menú abierto. Selector operable con flechas de teclado. Cambio de idioma durante pausa conserva la partida y actualiza etiquetas de reanudar. La revisión terminó en español, conservando el récord anterior.
 - Viewport 320×568: marco completo desde (0,0), sin scroll externo ni desbordamiento horizontal del menú; texto de controles de 14 px. El scroll interno permite conservar la legibilidad cuando no cabe todo.
 - Verificados `html.lang` y `translate="no"` con las instrucciones `notranslate`. Son indicaciones al navegador, no un bloqueo de traducción manual o extensiones.
+
+## Revisión v6: banderas de idioma
+
+- Selector compartido con banderas SVG monocromas de España y Reino Unido, sin emojis. En el menú de juego aparece debajo de la guía y antes de los enlaces, reutilizando la visibilidad de inicio/pausa/fin.
+- Navegador: posición debajo de los controles confirmada por geometría; botones de 50 px de alto. Selección identificada mediante borde, subrayado y `aria-pressed`. Cambio a inglés, persistencia tras recargar y vuelta a español con Espacio comprobados; récord conservado y consola sin errores.
+- Las 30 pruebas existentes pasan y el build se genera correctamente. No cambian las reglas del juego ni el formato de la preferencia persistente.
