@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
-    "test": "node --test"
+    "test": "node --test",
+    "build:icon": "node scripts/create-favicon.mjs"
   },
   "engines": {
     "node": ">=22"
