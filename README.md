@@ -11,7 +11,7 @@ Requiere Node.js 22 o superior. No necesita instalar paquetes.
 npm run dev
 ```
 
-Abrir http://127.0.0.1:5173. Flechas o A/D para cambiar de carril; mantener ↓/S para acelerar; espacio para iniciar; P/Escape para pausar. También hay botones táctiles. El récord se guarda en una cookie opcional solo tras aceptar; se puede rechazar o revocar desde «Configurar cookies». Ver [política de cookies](cookies.html).
+Abrir http://127.0.0.1:5173. Flechas o A/D para cambiar de carril; mantener ↓/S para acelerar; espacio para iniciar; P/Escape para pausar. También hay botones táctiles. El récord se guarda en una cookie opcional solo tras aceptar; se puede rechazar o revocar desde «Configurar cookies». Ver [política de cookies](https://github.com/DavidOrtegaH/TuxFall/blob/develop/cookies.html).
 
 ```sh
 npm test
@@ -21,7 +21,7 @@ npm run build
 ## Stack y SpecDD
 JavaScript ES modules, Canvas 2D y CSS; herramientas y pruebas nativas de Node. Sin framework, servicios, fuentes remotas ni dependencias de producción. Canvas mantiene el pixel art consistente y el modelo independiente permite verificar las reglas.
 
-La fuente de comportamiento es [specs/001-tuxfall.md](specs/001-tuxfall.md). Flujo: actualizar requisitos y criterios → modificar modelo → verificar pruebas → renderizado y comprobación visual. Las pruebas citan los identificadores de requisito. No se requiere plataforma de SpecDD externa.
+La fuente de comportamiento es [specs/001-tuxfall.md](https://github.com/DavidOrtegaH/TuxFall/blob/develop/specs/001-tuxfall.md). Flujo: actualizar requisitos y criterios → modificar modelo → verificar pruebas → renderizado y comprobación visual. Las pruebas citan los identificadores de requisito. No se requiere plataforma de SpecDD externa.
 
 ## GitHub Pages
 El workflow del prototipo prueba y construye en las cuatro ramas y en PRs; despliega `dist` exclusivamente mediante ejecución manual desde `release`, una vez que esa rama reciba una versión finalizada con el workflow. Las cuatro ramas ya existen en GitHub y la predeterminada es `main`. Para el primer despliegue, en Settings → Pages → Build and deployment, seleccionar GitHub Actions. GitHub Pages admite repositorios públicos con GitHub Free: https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
