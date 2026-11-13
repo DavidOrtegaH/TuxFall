@@ -63,6 +63,10 @@ Fuentes de R23: límite de cookies de Chrome (https://developer.chrome.com/blog/
 - R44: durante la partida, capturar flechas antes de la navegación de interfaz, cancelar su acción predeterminada y devolver el foco al canvas al usarlas. No desplazar selección a botones, ni activar el altavoz mediante controles de juego. Mantener Tab y foco visible para navegar por los controles, y no interceptar el diálogo de cookies.
 - R45: aviso sonoro una sola vez por múltiplo de 500 puntos (500, 1000, 1500…), sustituyendo el intervalo anterior de 1000. No repetir al pausar/reanudar; reiniciar los hitos con cada partida.
 
+## Revisión v12 · marcador de hitos
+- R46: al alcanzar cada múltiplo de 500 o superar por primera vez un récord previo positivo, fijar visualmente PUNTOS durante 1.2 segundos y parpadear tres veces (ciclos de 400 ms). Al acabar recuperar inmediatamente la puntuación real, que sigue avanzando sin alterar velocidad, colisiones, récord ni guardado. En hitos mostrar el múltiplo alcanzado; al superar récord, la puntuación que lo supera. Eventos coincidentes comparten un efecto; un nuevo evento durante el efecto lo sustituye. Solo afecta a los números de PUNTOS, no al rótulo ni al récord.
+- R47: pausa, fin y reintento descartan el efecto y muestran cifras reales. Con movimiento reducido, conservar la detención temporal sin parpadeo. No activar por récord inicial cero. El efecto visual es independiente del sonido y no modifica los anuncios accesibles.
+
 ## Distribución y mantenimiento
 - R14: proyecto personal de David Ortega Hoyas, con código público bajo PolyForm Noncommercial 1.0.0 y Required Notice de autoría, preservando derechos de terceros. No se aceptan contribuciones externas. No anunciar como open source OSI.
 - R15: `main` principal; `features` desarrollo; `develop` integración; `release` estabilización/publicación. Versión en desarrollo 0.1.0, sin etiqueta 1.0 hasta terminarla. CI en todas las ramas; despliegue manual desde `release`.

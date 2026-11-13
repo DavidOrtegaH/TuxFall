@@ -179,3 +179,4 @@ dialog { font-size: 16px; }
 
 /* The canvas receives gameplay focus; menu controls keep their visible focus ring. */
 #game:focus { outline: none; }
+.score-blink-hidden { opacity: 0; }

@@ -84,3 +84,10 @@ Fecha: 13 de noviembre de 2026. Esto no declara una versión estable ni sustituy
 - Navegador: con foco en altavoz, ArrowLeft pasa el foco a game sin cambiar aria-pressed del sonido. ArrowRight y pausa funcionan desde el canvas. Tab en pausa alcanza Reanudar partida.
 - Aviso sonoro cada 500 puntos. Pruebas de 499→500, puntuación inmóvil en 500, 1499→1500 y cruce de varios umbrales sin repeticiones.
 - 36 pruebas, comprobación sintáctica y build correctos.
+
+## Revisión v12: detención visual y parpadeo de PUNTOS
+
+- Presentación independiente del modelo: 1.2 s y tres ciclos de 400 ms en cada hito de 500 o primer cruce de récord positivo. Coincidencias usan un único efecto. Se congela el múltiplo alcanzado o la cifra que supera el récord; después se recupera la cuenta real.
+- Pausa/fin descartan el efecto; nueva partida muestra cifras reales. Movimiento reducido conserva la detención sin parpadear. Sonido, récord persistente y anuncios no dependen del efecto visual.
+- 39 pruebas y build correctos. Casos nuevos cubren las seis fases, avance de puntuación real, recuperación, pausa/fin/reinicio, sustitución por otro evento, coincidencia y exclusión del récord cero.
+- Navegador, partida aislada iniciada en 499 con récord previo 499: marcador 00500 mientras récord real mostraba 00501. Muestreo de 120 frames confirma congelación con cuenta real en avance, fase oculta y recuperación de la cifra real. Récord del usuario conservado en 1761; archivos temporales retirados.
