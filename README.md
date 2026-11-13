@@ -45,3 +45,5 @@ Copyright © 2026 David Ortega Hoyas sobre sus aportaciones originales. [PolyFor
 El código es público y consultable, pero esta licencia no es «open source» según la [definición OSI](https://opensource.org/osd), que exige permitir también uso comercial. No se concede exclusividad sobre la idea del juego ni sobre Tux. La licencia obliga a preservar atribución, pero no puede impedir técnicamente que alguien incumpla o cree un fork.
 
 No se aceptan contribuciones externas: [CONTRIBUTING.md](CONTRIBUTING.md). Solo el propietario integra cambios. Flujo `features` → `develop` → `release` → `main`: [convenciones de Git](docs/BRANCHING.md). Versión en desarrollo `0.1.0`; 1.0 se publicará cuando esté finalizada.
+
+El sonido sintetizado acompaña los cambios de carril, los nuevos récords y cada 1000 puntos. El botón de altavoz junto a pausa permite silenciarlo durante la visita sin crear cookies. Al superar una marca previa, el menú final muestra NUEVO RÉCORD con tres Tux pixelados de felicitación.

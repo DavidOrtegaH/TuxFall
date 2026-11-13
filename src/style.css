@@ -170,3 +170,9 @@ dialog { font-size: 16px; }
 .primary, .pause { display: grid; place-items: center; padding: 0; line-height: 0; flex-shrink: 0; }
 .primary svg, .pause svg { display: block; margin: 0; }
 .pause svg { width: 26px; height: 26px; }
+.hud-controls { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; }
+.sound-toggle { display: grid; place-items: center; flex-shrink: 0; width: 48px; height: 48px; padding: 0; line-height: 0; border: 1px solid #abad9f; background: transparent; }
+.sound-toggle svg { display: block; width: 26px; height: 26px; }
+.sound-toggle:hover { --speaker-paper: #d6d8cc; }
+.record-celebration { display: flex; justify-content: center; gap: 8px; margin: 12px 0 0; }
+.record-celebration svg { display: block; width: 36px; height: 48px; image-rendering: pixelated; }

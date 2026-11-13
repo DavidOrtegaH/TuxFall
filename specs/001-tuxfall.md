@@ -48,6 +48,12 @@ Fuentes de R23: límite de cookies de Chrome (https://developer.chrome.com/blog/
 - R35: etiquetas del HUD en sans serif de sistema a 12 px, peso 600 y espaciado moderado. Números a 19 px y peso 700 conservan mayor tamaño y protagonismo. Sin aumentar la altura de 64 px ni invadir el canvas; comprobar español e inglés.
 - R36: Play, pausa, reanudar y reintento usan SVG en un mismo encuadre simétrico. Centrar el dibujo y el SVG en el cuadrado; eliminar caracteres tipográficos de pausa y padding que provoque desbordamiento en tamaños compactos. Mantener nombres accesibles y tamaños de botón existentes.
 
+## Revisión v9 · celebración y sonido
+- R37: al terminar tras superar un récord previo positivo, sustituir «TU RÉCORD» por «NUEVO RÉCORD» y mostrar tres Tux pixelados con punto inferior, como tres signos de exclamación. Compartir el sprite jugable y la paleta; sin duplicar el rótulo ni alterar «Reintentar». Anuncios accesibles y traducción inglesa conservados.
+- R38: sonidos breves sintetizados localmente: cambio efectivo de carril, nuevo récord (una vez por partida) y cada múltiplo de 1000 puntos alcanzado (una vez por umbral, no cada frame). Reintentar reinicia los umbrales; pausar/reanudar no. No sonar al intentar salir del borde ni al moverse con la partida detenida. Si coinciden récord y mil puntos, reproducir ambos en secuencia.
+- R39: control de sonido de 48×48 a la derecha de pausa, con 12 px de separación. Altavoz monocromo sin línea al estar activo, con línea al silenciar; nombre, ayuda y estado accesibles en ambos idiomas. Sonido activo inicialmente, iniciado solo por un gesto del usuario; silencio conservado durante la visita/reintentos, sin añadir cookies. Silenciar o pausar cancela sonidos activos y pendientes. Si Web Audio no está disponible, seguir jugando sin errores.
+- R40: abrir un hueco visible entre la punta de flecha de reintento y el otro extremo del arco, manteniendo el icono centrado.
+
 ## Distribución y mantenimiento
 - R14: proyecto personal de David Ortega Hoyas, con código público bajo PolyForm Noncommercial 1.0.0 y Required Notice de autoría, preservando derechos de terceros. No se aceptan contribuciones externas. No anunciar como open source OSI.
 - R15: `main` principal; `features` desarrollo; `develop` integración; `release` estabilización/publicación. Versión en desarrollo 0.1.0, sin etiqueta 1.0 hasta terminarla. CI en todas las ramas; despliegue manual desde `release`.
