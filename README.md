@@ -2,7 +2,7 @@
 
 Juego web monocromo de caída libre con Tux. Tres carriles, pájaros, aviones, paracaídas degradable y ciclo día/noche.
 
-La interfaz contiene solo el juego: marco centrado en PC y viewport completo en móvil/tablet. Los menús legibles incluyen logo pixelado, Play/reintento, récord, guía según teclado o entrada táctil y selector Español / English. Al terminar, la puntuación de la partida aparece debajo del récord. Cookies, licencia y créditos están disponibles dentro del menú y la pausa.
+La interfaz contiene solo el juego: marco centrado en PC y viewport completo en móvil/tablet. Los menús legibles incluyen logo pixelado, Play/reintento, récord, guía según teclado o entrada táctil y banderas monocromas de España / Reino Unido justo debajo de los controles para elegir idioma. Al terminar, la puntuación de la partida aparece debajo del récord. Cookies, licencia y créditos están disponibles dentro del menú y la pausa.
 
 Repositorio oficial: https://github.com/DavidOrtegaH/TuxFall. `main` es la rama principal y contiene por ahora la base legal y las normas. El prototipo `0.1.0` está en [`features`](https://github.com/DavidOrtegaH/TuxFall/tree/features) y su integración en [`develop`](https://github.com/DavidOrtegaH/TuxFall/tree/develop). Para ejecutarlo, usar una de esas ramas. `release` queda preparada para estabilizar versiones; todavía no hay una entrega 1.0 ni despliegue público del juego.
 

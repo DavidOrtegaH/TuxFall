@@ -35,6 +35,10 @@ Fuentes de R23: límite de cookies de Chrome (https://developer.chrome.com/blog/
 - R28: cookie funcional `tuxfall_language` de hasta 400 días renovables y respaldo local del idioma expresamente elegido. No crear preferencia por aplicar el español por defecto. Guardar al elegir y reutilizar al recargar o navegar a otra página, incluso si se rechaza guardar el récord. Usar exclusivamente para idioma; documentar duración y eliminación. Bloqueos del almacenamiento no impiden cambiar de idioma durante la visita.
 - R29: `lang` del elemento `html` refleja el idioma mostrado. `translate="no"`, clase `notranslate`, meta `google` y `googlebot` con `notranslate` en todas las páginas de producto. No eliminar `lang` ni mentir sobre él. Son indicaciones para evitar sugerencias automáticas; el navegador, extensiones o traducción manual siguen bajo control del usuario.
 
+## Revisión v6 · selector de banderas
+- R30: sustituir el desplegable por botones con banderas SVG monocromas de España y Reino Unido, sin emojis ni colores nacionales. En el juego aparecen justo debajo de la guía de controles y antes de los enlaces del menú, únicamente en inicio, pausa y fin. Usar los mismos botones en páginas auxiliares para coherencia visual. Conservar traducciones, `lang` y persistencia existentes.
+- R31: selección perceptible mediante borde y marca inferior, además de `aria-pressed`; nombres accesibles y ayuda traducidos. Botones de al menos 48 px de alto, foco visible y activación nativa por teclado. Respetar la paleta clara/oscura del marco.
+
 ## Distribución y mantenimiento
 - R14: proyecto personal de David Ortega Hoyas, con código público bajo PolyForm Noncommercial 1.0.0 y Required Notice de autoría, preservando derechos de terceros. No se aceptan contribuciones externas. No anunciar como open source OSI.
 - R15: `main` principal; `features` desarrollo; `develop` integración; `release` estabilización/publicación. Versión en desarrollo 0.1.0, sin etiqueta 1.0 hasta terminarla. CI en todas las ramas; despliegue manual desde `release`.
