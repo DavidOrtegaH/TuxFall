@@ -1,83 +1,87 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" translate="no" class="notranslate">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#eeeee7">
-  <meta name="description" content="TuxFall: un juego pixelado de caída libre. Tres carriles, un pingüino y un paracaídas con los segundos contados.">
-  <title>TuxFall — caída libre</title>
+  <meta data-i18n-content="description" name="description" content="TuxFall: un juego pixelado de caída libre. Tres carriles, un pingüino y un paracaídas con los segundos contados.">
+  <title>TuxFall</title>
+  <meta name="google" content="notranslate">
+  <meta name="googlebot" content="notranslate">
   <link rel="icon" type="image/svg+xml" href="./src/favicon.svg">
   <link rel="stylesheet" href="./src/style.css">
 </head>
 <body class="game-page">
-  <main class="arcade" id="arcade" data-status="ready" data-input="keyboard" aria-label="Juego TuxFall">
-    <header class="hud" aria-label="Marcador">
-      <button id="pause" class="pause" aria-label="Pausar partida" disabled>Ⅱ</button>
+  <main class="arcade" id="arcade" data-status="ready" data-input="keyboard" aria-label="Juego TuxFall" data-i18n-aria="gameLabel">
+    <header class="hud" data-i18n-aria="scoreboard" aria-label="Marcador">
+      <button id="pause" class="pause" aria-label="Pausar partida" disabled data-i18n-aria="pauseGame">Ⅱ</button>
       <div class="hud-scores">
-        <div><small>PUNTOS</small><output id="score" aria-live="off">00000</output></div>
-        <div><small>RÉCORD</small><output id="best" aria-live="off">00000</output></div>
+        <div><small data-i18n="points">PUNTOS</small><output id="score" aria-live="off">00000</output></div>
+        <div><small data-i18n="best">RÉCORD</small><output id="best" aria-live="off">00000</output></div>
       </div>
-      <span id="record-notice" hidden>¡NUEVO RÉCORD!</span>
+      <span id="record-notice" data-i18n="newRecord" hidden>¡NUEVO RÉCORD!</span>
     </header>
 
     <div class="viewport" id="viewport">
-      <canvas id="game" width="360" height="520" aria-label="Tux cae por tres carriles. Esquiva obstáculos moviéndote a izquierda o derecha."></canvas>
-      <section class="overlay" id="overlay" aria-label="Menú de partida">
+      <canvas id="game" width="360" height="520" aria-label="Tux cae por tres carriles. Esquiva obstáculos moviéndote a izquierda o derecha." data-i18n-aria="canvasDescription"></canvas>
+      <section class="overlay" id="overlay" aria-label="Menú de partida" data-i18n-aria="menuLabel">
         <div class="menu-main">
           <h1 class="logo"><img src="./src/tuxfall.svg" width="246" height="42" alt="TuxFall"></h1>
           <p class="overlay-label" id="overlay-label" hidden></p>
-          <button class="primary" id="start" aria-label="Iniciar partida">
+          <button class="primary" id="start" aria-label="Iniciar partida" data-i18n-aria="startGame">
             <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 6 27 16 11 26Z" fill="currentColor"/></svg>
           </button>
           <div class="menu-stats">
-            <div><span>TU RÉCORD</span><output id="menu-best">00000</output></div>
-            <div id="menu-score-row" hidden><span>ESTA PARTIDA</span><output id="menu-score">00000</output></div>
+            <div><span data-i18n="yourBest">TU RÉCORD</span><output id="menu-best">00000</output></div>
+            <div id="menu-score-row" hidden><span data-i18n="thisRun">ESTA PARTIDA</span><output id="menu-score">00000</output></div>
           </div>
         </div>
 
         <div class="menu-details">
-          <div class="control-guide" aria-label="Guía de controles">
+          <label class="language-control"><span data-i18n="languageLabel">Idioma</span><select data-language-select aria-label="Idioma" data-i18n-aria="languageLabel"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option></select></label>
+          <div class="control-guide" data-i18n-aria="controlGuide" aria-label="Guía de controles">
             <div id="guide-keyboard">
-              <p><kbd>←</kbd> <kbd>→</kbd> <span>o</span> <kbd>A</kbd> <kbd>D</kbd> <span>Cambiar de carril</span></p>
-              <p><kbd>↓</kbd> <span>o</span> <kbd>S</kbd> <span>Mantener para acelerar</span></p>
-              <p><kbd>P</kbd> <kbd>Esc</kbd> <span>Pausa</span> · <kbd>Espacio</kbd> <span>Jugar</span></p>
+              <p><kbd>←</kbd> <kbd>→</kbd> <span data-i18n="or">o</span> <kbd>A</kbd> <kbd>D</kbd> <span data-i18n="moveLane">Cambiar de carril</span></p>
+              <p><kbd>↓</kbd> <span data-i18n="or">o</span> <kbd>S</kbd> <span data-i18n="holdBoost">Mantener para acelerar</span></p>
+              <p><kbd>P</kbd> <kbd>Esc</kbd> <span data-i18n="pauseAction">Pausa</span> · <kbd data-i18n="spaceKey">Espacio</kbd> <span data-i18n="playAction">Jugar</span></p>
             </div>
             <div id="guide-touch" hidden>
-              <p><kbd>←</kbd> <kbd>→</kbd> <span>Toca un botón para cambiar de carril</span></p>
-              <p><kbd>↓</kbd> <span>Mantén el botón para acelerar</span></p>
-              <p><kbd>Ⅱ</kbd> <span>Toca para pausar</span> · <kbd>▷</kbd> <span>Jugar</span></p>
+              <p><kbd>←</kbd> <kbd>→</kbd> <span data-i18n="touchMove">Toca un botón para cambiar de carril</span></p>
+              <p><kbd>↓</kbd> <span data-i18n="touchBoost">Mantén el botón para acelerar</span></p>
+              <p><kbd>Ⅱ</kbd> <span data-i18n="touchPause">Toca para pausar</span> · <kbd>▷</kbd> <span data-i18n="playAction">Jugar</span></p>
             </div>
           </div>
           <footer class="menu-footer">
-            <button class="cookie-link" id="cookie-open">Configurar cookies</button>
-            <a href="./NOTICE.md" target="_blank" rel="noopener">Créditos</a>
-            <a href="./LICENSE" target="_blank" rel="noopener">Licencia</a>
+            <button class="cookie-link" id="cookie-open" data-i18n="cookieSettings">Configurar cookies</button>
+            <a href="./about.html" target="_blank" rel="noopener" data-i18n="credits">Créditos</a>
+            <a href="./about.html" target="_blank" rel="noopener" data-i18n="license">Licencia</a>
             <small>© 2026 David Ortega Hoyas</small>
           </footer>
-          <section class="cookie-banner" id="cookie-banner" aria-label="Preferencias de cookies">
-            <strong>¿Guardamos tu récord?</strong>
-            <p>Récord local sin caducidad del juego y cookie de respaldo de hasta 400 días, renovable. Puedes jugar sin aceptar. La elección se recuerda 720 días. Al aceptar recuperamos tu récord anterior, si sigue disponible. <a href="./cookies.html" target="_blank" rel="noopener">Política de cookies</a>.</p>
-            <div class="cookie-actions"><button data-cookies="yes">Aceptar</button><button data-cookies="no">Rechazar</button></div>
+          <section class="cookie-banner" id="cookie-banner" aria-label="Preferencias de cookies" data-i18n-aria="cookieQuestion">
+            <strong data-i18n="cookieQuestion">¿Guardamos tu récord?</strong>
+            <p><span data-i18n="cookieSummary">Récord local sin caducidad del juego y cookie de respaldo renovable. Puedes jugar sin aceptar.</span> <a href="./cookies.html" target="_blank" rel="noopener" data-i18n="cookiePolicy">Política de cookies</a>.</p>
+            <div class="cookie-actions"><button data-cookies="yes" data-i18n="accept">Aceptar</button><button data-cookies="no" data-i18n="reject">Rechazar</button></div>
           </section>
         </div>
       </section>
     </div>
 
-    <nav class="touch" id="touch-controls" aria-label="Controles táctiles" hidden>
-      <button id="left" aria-label="Mover al carril izquierdo">←</button>
-      <button id="boost" aria-label="Mantener pulsado para acelerar" title="Mantén pulsado para acelerar">↓</button>
-      <button id="right" aria-label="Mover al carril derecho">→</button>
+    <nav class="touch" id="touch-controls" aria-label="Controles táctiles" hidden data-i18n-aria="touchControls">
+      <button id="left" aria-label="Mover al carril izquierdo" data-i18n-aria="left">←</button>
+      <button id="boost" data-i18n-title="boost" aria-label="Mantener pulsado para acelerar" title="Mantén pulsado para acelerar" data-i18n-aria="boost">↓</button>
+      <button id="right" aria-label="Mover al carril derecho" data-i18n-aria="right">→</button>
     </nav>
     <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
   </main>
 
   <dialog id="cookie-settings" aria-labelledby="cookie-heading">
-    <h2 id="cookie-heading">Tu récord, tú decides.</h2>
+    <h2 id="cookie-heading" data-i18n="cookieDialogTitle">Tu récord, tú decides.</h2>
     <p id="cookie-choice"></p>
-    <p>Tu récord se guarda localmente sin caducidad del juego y con una cookie de respaldo renovable de hasta 400 días. El navegador puede borrar los datos. Al rechazar se eliminan ambas copias; el récord de esta visita sigue en memoria. Tu elección se conserva 720 días mediante almacenamiento técnico.</p>
-    <a href="./cookies.html" target="_blank" rel="noopener">Consultar política de cookies</a>
-    <div class="cookie-actions"><button data-cookies="yes">Aceptar</button><button data-cookies="no">Rechazar y borrar</button></div>
-    <button id="cookie-close">Cerrar</button>
+    <p data-i18n="cookieDialogBody">Tu récord se guarda localmente sin caducidad del juego y con una cookie de respaldo renovable de hasta 400 días. El navegador puede borrar los datos. Al rechazar se eliminan ambas copias; el récord de esta visita sigue en memoria. Tu elección se conserva 720 días mediante almacenamiento técnico.</p>
+    <p data-i18n="languageStorage">El idioma se recuerda aparte del récord.</p>
+    <a href="./cookies.html" target="_blank" rel="noopener" data-i18n="cookieConsult">Consultar política de cookies</a>
+    <div class="cookie-actions"><button data-cookies="yes" data-i18n="accept">Aceptar</button><button data-cookies="no" data-i18n="rejectDelete">Rechazar y borrar</button></div>
+    <button id="cookie-close" data-i18n="close">Cerrar</button>
   </dialog>
   <script type="module" src="./src/main.js"></script>
 </body>

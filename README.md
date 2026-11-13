@@ -2,7 +2,7 @@
 
 Juego web monocromo de caída libre con Tux. Tres carriles, pájaros, aviones, paracaídas degradable y ciclo día/noche.
 
-La interfaz contiene solo el juego: marco centrado en PC y viewport completo en móvil/tablet. Los menús incluyen logo pixelado, Play/reintento, récord y guía según teclado o entrada táctil. Al terminar, la puntuación de la partida aparece debajo del récord. Cookies, licencia y créditos están disponibles dentro del menú y la pausa.
+La interfaz contiene solo el juego: marco centrado en PC y viewport completo en móvil/tablet. Los menús legibles incluyen logo pixelado, Play/reintento, récord, guía según teclado o entrada táctil y selector Español / English. Al terminar, la puntuación de la partida aparece debajo del récord. Cookies, licencia y créditos están disponibles dentro del menú y la pausa.
 
 Repositorio oficial: https://github.com/DavidOrtegaH/TuxFall. `main` es la rama principal y contiene por ahora la base legal y las normas. El prototipo `0.1.0` está en [`features`](https://github.com/DavidOrtegaH/TuxFall/tree/features) y su integración en [`develop`](https://github.com/DavidOrtegaH/TuxFall/tree/develop). Para ejecutarlo, usar una de esas ramas. `release` queda preparada para estabilizar versiones; todavía no hay una entrega 1.0 ni despliegue público del juego.
 
@@ -15,7 +15,9 @@ npm run dev
 
 Abrir http://127.0.0.1:5173. Flechas o A/D para cambiar de carril; mantener ↓/S para acelerar; espacio para iniciar; P/Escape para pausar. También hay botones táctiles. Tras aceptar, el récord se guarda localmente sin caducidad del juego y con cookie de respaldo renovable de hasta 400 días. Se renueva la decisión a los 720 días y se puede revocar desde «Configurar cookies». El navegador o el usuario pueden borrar datos; no se promete persistencia indefinida. Ver [política de cookies](https://github.com/DavidOrtegaH/TuxFall/blob/develop/cookies.html).
 
-La velocidad llega a 260 px/s (320 manteniendo aceleración); las oleadas pasan progresivamente de 1.8 a 1.0 segundos. A la velocidad máxima, un avión completo conserva unos 0.93 s de margen visible antes de colisionar. Una simulación con respuesta de 300 ms y 150 ms entre cambios comprueba 36 combinaciones durante ocho minutos; esto verifica margen mecánico, no garantiza una dificultad adecuada para todas las personas.
+La velocidad llega a 340 px/s (430 manteniendo aceleración); las filas pasan progresivamente de 1.8 a 0.74 segundos. Aparecen filas de dos pájaros que dejan un solo hueco y favorecen cambiar de carril, sin perseguir al jugador. A la velocidad máxima, un avión completo conserva unos 0.69 s de margen visible antes de colisionar. Una simulación con respuesta de 220 ms y 110 ms entre cambios comprueba 72 combinaciones de semillas, aceleración y tasas de 30/120 FPS durante ocho minutos; verifica margen mecánico, no garantiza una dificultad adecuada para todas las personas.
+
+El título es `TuxFall`. Español es el idioma predeterminado; la elección expresa de inglés o español se recuerda mediante la cookie funcional `tuxfall_language` (400 días renovables) y una copia local. Es independiente del guardado opcional del récord. El selector traduce interfaz, mensajes accesibles y páginas de privacidad/créditos/licencia, manteniendo intacto el texto jurídico original de LICENSE. `html[lang]` refleja el idioma visible; `translate="no"` y metadatos `notranslate` indican que no se desea traducción automática. La traducción manual, extensiones o ajustes del navegador quedan bajo control del usuario.
 
 ```sh
 npm test
