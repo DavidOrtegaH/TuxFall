@@ -1,14 +1,14 @@
 export const SOUND_PATTERNS={
- lane:{notes:[720],spacing:0,duration:.045,wave:'triangle',peak:.45},
+ lane:{notes:[720],endFrequency:420,spacing:0,duration:.095,wave:'triangle',peak:.8},
  record:{notes:[784,988,1318],spacing:.09,duration:.11,wave:'square',peak:.35},
- milestone:{notes:[523,784],spacing:.08,duration:.1,wave:'triangle',peak:.45}
+ milestone:{notes:[784,1047],spacing:.13,duration:.22,wave:'sine',peak:.85}
 };
-export function createSoundEngine({AudioContextClass=globalThis.AudioContext??globalThis.webkitAudioContext}={}){
- let context=null,master=null,enabled=true,failed=false,generation=0;
+export function createSoundEngine({AudioContextClass=globalThis.AudioContext??globalThis.webkitAudioContext,initialEnabled=false}={}){
+ let context=null,master=null,enabled=initialEnabled,failed=false,generation=0;
  const active=new Set(),supported=()=>typeof AudioContextClass==='function'&&!failed;
  async function unlock(){
   if(!enabled||!supported())return false;
-  if(!context){try{context=new AudioContextClass();master=context.createGain();master.gain.value=.045;master.connect(context.destination);}catch{failed=true;return false;}}
+  if(!context){try{context=new AudioContextClass();master=context.createGain();master.gain.value=.22;master.connect(context.destination);}catch{failed=true;return false;}}
   try{if(context.state==='suspended')await context.resume();return context.state==='running';}catch{return false;}
  }
  function stop(){
@@ -23,10 +23,11 @@ export function createSoundEngine({AudioContextClass=globalThis.AudioContext??gl
   const pattern=SOUND_PATTERNS[effect],token=generation;
   if(!pattern||!enabled||!await unlock()||!enabled||token!==generation)return false;
   try{
-   const now=context.currentTime;master.gain.cancelScheduledValues(now);master.gain.setValueAtTime(.045,now);
+   const now=context.currentTime;master.gain.cancelScheduledValues(now);master.gain.setValueAtTime(.22,now);
    pattern.notes.forEach((frequency,index)=>{
     const start=now+.005+Math.max(0,delay)+index*pattern.spacing,oscillator=context.createOscillator(),gain=context.createGain();
     oscillator.type=pattern.wave;oscillator.frequency.setValueAtTime(frequency,start);
+    if(pattern.endFrequency)oscillator.frequency.exponentialRampToValueAtTime(pattern.endFrequency,start+pattern.duration);
     gain.gain.setValueAtTime(0,start);gain.gain.linearRampToValueAtTime(pattern.peak,start+.004);gain.gain.exponentialRampToValueAtTime(.0001,start+pattern.duration);
     oscillator.connect(gain);gain.connect(master);active.add(oscillator);
     oscillator.onended=()=>{active.delete(oscillator);oscillator.disconnect();gain.disconnect();};

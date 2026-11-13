@@ -68,3 +68,12 @@ Fecha: 13 de noviembre de 2026. Esto no declara una versión estable ni sustituy
 - Navegador: botón de sonido de 48×48 a 12 px de pausa, cambio de etiqueta/icono al silenciar y consola sin errores. El récord de prueba se aísla del almacenamiento del usuario.
 - Flecha de reintento con extremo abierto y hueco visible respecto al final del arco.
 - Revisión visual aislada: fin de partida con NUEVO RÉCORD y exactamente tres Tux; al reintentar desaparecen y vuelve TU RÉCORD. Conservados los 1761 puntos existentes del usuario; archivos temporales retirados.
+
+## Revisión v10: sonido persistente y felicitación compacta
+
+- Rótulo NUEVO RÉCORD flanqueado por un Tux a cada lado, con el sprite y colores del juego.
+- Silencio por defecto sin escribir cookie. Elección expresa on/off guardada en tuxfall_sound, limitada a ruta/host, SameSite=Lax y Secure bajo HTTPS; 400 días renovables. No depende del guardado del récord. Política y diálogo actualizados en español e inglés.
+- Cambio de carril: tono triangular deslizante de 95 ms; hito: dos notas ascendentes de 220 ms separadas 130 ms. Ganancia principal aumentada de 0.045 a 0.22. Activar el sonido reproduce una confirmación.
+- 36 pruebas correctas, incluidos silencio inicial, cookies on/off, recarga, cookies bloqueadas, cancelación y umbrales. Medición en Web Audio real tras gesto: pico 0.173 para carril y 0.185 para hito, contexto running. Esto verifica generación de señal; no permite confirmar el volumen físico de los altavoces del usuario.
+- Navegador: verificados estado inicial silenciado y persistencia de activación y silencio tras recarga. Prueba de récord aislada sin modificar el récord real.
+- Cookie funcional de personalización solicitada expresamente, sin publicidad ni perfiles; criterio consultado en https://www.aepd.es/guias/guia-cookies.pdf.

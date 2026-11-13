@@ -24,7 +24,7 @@ function fakeAudio(){
  return {Context,instances};
 }
 test('R38/R39: audio is lazy, effects differ and delayed notes stop on mute',async()=>{
- const {Context,instances}=fakeAudio(),sound=createSoundEngine({AudioContextClass:Context});
+ const {Context,instances}=fakeAudio(),sound=createSoundEngine({AudioContextClass:Context,initialEnabled:true});
  assert.equal(instances.length,0);
  assert.equal(await sound.play('lane'),true);
  const context=instances[0];assert.equal(context.oscillators.length,1);
@@ -39,12 +39,17 @@ test('R38/R39: audio is lazy, effects differ and delayed notes stop on mute',asy
  assert.equal(await sound.play('lane'),true);
 });
 test('R39: pausing invalidates pending playback; unavailable audio is harmless',async()=>{
- const {Context,instances}=fakeAudio(),sound=createSoundEngine({AudioContextClass:Context});
+ const {Context,instances}=fakeAudio(),sound=createSoundEngine({AudioContextClass:Context,initialEnabled:true});
  const pending=sound.play('record');sound.stop();assert.equal(await pending,false);
  assert.equal(instances[0].oscillators.length,0);
  const unavailable=createSoundEngine({AudioContextClass:null});
  assert.equal(unavailable.supported,false);assert.equal(await unavailable.play('lane'),false);
  class Broken {constructor(){throw Error('blocked');}}
- const blocked=createSoundEngine({AudioContextClass:Broken});
+ const blocked=createSoundEngine({AudioContextClass:Broken,initialEnabled:true});
  assert.equal(await blocked.play('lane'),false);assert.equal(blocked.supported,false);
+});
+
+test('R42: default audio is muted and creates no audio context',async()=>{
+ const {Context,instances}=fakeAudio(),sound=createSoundEngine({AudioContextClass:Context});
+ assert.equal(sound.enabled,false);assert.equal(await sound.play('lane'),false);assert.equal(instances.length,0);
 });

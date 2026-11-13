@@ -54,6 +54,11 @@ Fuentes de R23: límite de cookies de Chrome (https://developer.chrome.com/blog/
 - R39: control de sonido de 48×48 a la derecha de pausa, con 12 px de separación. Altavoz monocromo sin línea al estar activo, con línea al silenciar; nombre, ayuda y estado accesibles en ambos idiomas. Sonido activo inicialmente, iniciado solo por un gesto del usuario; silencio conservado durante la visita/reintentos, sin añadir cookies. Silenciar o pausar cancela sonidos activos y pendientes. Si Web Audio no está disponible, seguir jugando sin errores.
 - R40: abrir un hueco visible entre la punta de flecha de reintento y el otro extremo del arco, manteniendo el icono centrado.
 
+## Revisión v10 · sonido persistente y felicitación compacta
+- R41: al finalizar con récord, mostrar exactamente un Tux a cada lado del rótulo NUEVO RÉCORD, en la misma fila, sin Tux debajo de la cifra.
+- R42: silencio por defecto. Guardar solo la elección expresa en la cookie funcional propia `tuxfall_sound` (`on`/`off`), hasta 400 días renovables, independiente del permiso del récord. Si las cookies están bloqueadas, mantener la elección durante la visita. Documentarla en ambos idiomas y en Configurar cookies.
+- R43: cambio de carril con tono breve deslizante audible; cada 1000 puntos con campanilla ascendente diferenciada. Audio iniciado por gesto al activarlo o iniciar partida con preferencia activa; confirmación sonora al activarlo. Mantener cancelación al pausar/silenciar y no repetir hitos.
+
 ## Distribución y mantenimiento
 - R14: proyecto personal de David Ortega Hoyas, con código público bajo PolyForm Noncommercial 1.0.0 y Required Notice de autoría, preservando derechos de terceros. No se aceptan contribuciones externas. No anunciar como open source OSI.
 - R15: `main` principal; `features` desarrollo; `develop` integración; `release` estabilización/publicación. Versión en desarrollo 0.1.0, sin etiqueta 1.0 hasta terminarla. CI en todas las ramas; despliegue manual desde `release`.

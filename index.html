@@ -16,7 +16,7 @@
     <header class="hud" data-i18n-aria="scoreboard" aria-label="Marcador">
       <div class="hud-controls">
       <button id="pause" class="pause" aria-label="Pausar partida" disabled data-i18n-aria="pauseGame"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M8 7h5v18H8zm11 0h5v18h-5z" fill="currentColor"/></svg></button>
-      <button id="sound" class="sound-toggle" type="button" aria-label="Silenciar sonido" data-i18n-aria="muteSound" aria-pressed="false"></button>
+      <button id="sound" class="sound-toggle" type="button" aria-label="Activar sonido" data-i18n-aria="unmuteSound" aria-pressed="true"></button>
       </div>
       <div class="hud-scores">
         <div><small data-i18n="points">PUNTOS</small><output id="score" aria-live="off">00000</output></div>
@@ -35,7 +35,7 @@
             <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M9 6 23 16 9 26Z" fill="currentColor"/></svg>
           </button>
           <div class="menu-stats">
-            <div><span id="menu-best-label">TU RÉCORD</span><output id="menu-best">00000</output><div class="record-celebration" id="record-celebration" aria-hidden="true" hidden></div></div>
+            <div><div class="record-heading"><span class="record-tux" id="record-tux-left" aria-hidden="true" hidden></span><span id="menu-best-label">TU RÉCORD</span><span class="record-tux" id="record-tux-right" aria-hidden="true" hidden></span></div><output id="menu-best">00000</output></div>
             <div id="menu-score-row" hidden><span data-i18n="thisRun">ESTA PARTIDA</span><output id="menu-score">00000</output></div>
           </div>
         </div>
