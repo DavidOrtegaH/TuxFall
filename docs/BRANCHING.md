@@ -11,7 +11,7 @@ Flujo: `features` → `develop` → `release` → `main`. Después de estabiliza
 
 Todos los commits, incluidos los merges, siguen Conventional Commits en inglés: `feat: ...`, `fix: ...`, `docs: ...`, `chore: ...`. También se escriben en inglés los cuerpos de commit. La documentación y la interfaz pueden estar en español.
 
-La versión estable **1.0.0** está aprobada expresamente por David Ortega Hoyas el 13 de noviembre de 2026. La etiqueta `v1.0.0` identifica la versión verificada en `release` y promovida a `main`.
+La versión 1.0.0 fue aprobada expresamente por David Ortega Hoyas. La versión 1.1.0 añade el aviso de cookies fuera del flujo del juego. Las etiquetas `v1.0.0` y `v1.1.0` identifican las respectivas versiones verificadas en `release` y promovidas a `main`.
 
 Flujo autorizado: `features` → `develop` → `release` → `main`. Pages publica automáticamente cada push de `release`; también puede ejecutarse manualmente desde esa rama. El entorno `github-pages` permite únicamente `release`. Las otras ramas y los PRs solo ejecutan pruebas/build. Se deja el checkout en `features`.
 
