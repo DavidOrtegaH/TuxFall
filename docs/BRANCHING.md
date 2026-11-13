@@ -11,6 +11,8 @@ Flujo: `features` → `develop` → `release` → `main`. Después de estabiliza
 
 Todos los commits, incluidos los merges, siguen Conventional Commits en inglés: `feat: ...`, `fix: ...`, `docs: ...`, `chore: ...`. También se escriben en inglés los cuerpos de commit. La documentación y la interfaz pueden estar en español.
 
-La versión actual es `0.1.0`, en desarrollo. No hay una versión estable 1.0 ni una etiqueta `v1.0.0`. Crear esa etiqueta solo sobre un commit finalizado de `release`, con la especificación satisfecha, pruebas y build correctos y revisión visual completada; después integrar en `main`. El despliegue de Pages se ejecuta desde `release` de forma manual, para no publicar automáticamente trabajo en desarrollo.
+La versión pública inicial autorizada el 13 de noviembre de 2026 es `0.1.0`. No hay etiqueta `v1.0.0`; 1.0 exige finalización y aprobación expresa. El despliegue de Pages se ejecuta desde `release` manualmente, para no publicar desarrollo automáticamente.
+
+La publicación de esta versión está autorizada en la tarea de auditoría y despliegue. Tras verificar `features`, se integra en `develop`, se promociona a `release` y después a `main`. Las cuatro ramas reciben la documentación de publicación; se deja el checkout en `features`.
 
 CI ejecuta pruebas y build en las cuatro ramas. El repositorio oficial no acepta aportaciones externas; ver CONTRIBUTING.md. Las protecciones remotas, cuando estén disponibles, deben impedir borrados y force-push de `main`/`release`, limitar escrituras al propietario y mantener `main` como rama predeterminada. Estos ajustes no se activan por añadir este documento.

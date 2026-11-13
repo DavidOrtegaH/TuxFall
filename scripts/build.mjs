@@ -1,0 +1,12 @@
+import {mkdir,copyFile,readdir,rm} from 'node:fs/promises';
+import {resolve,extname,sep} from 'node:path';
+import './create-favicon.mjs';
+import './create-social.mjs';
+const root=resolve('.'),output=resolve(root,'dist');
+if(!output.startsWith(root+sep)||output===root)throw Error('Unexpected build output');
+await rm(output,{recursive:true,force:true});
+await mkdir(resolve(output,'src'),{recursive:true});
+const publicFiles=['index.html','cookies.html','about.html','sitemap.xml','NOTICE.md','LICENSE'];
+const assets=(await readdir('src',{withFileTypes:true})).filter(entry=>entry.isFile()&&!entry.name.startsWith('.')&&['.js','.svg','.css','.png'].includes(extname(entry.name))).map(entry=>'src/'+entry.name);
+await Promise.all([...publicFiles,...assets].map(file=>copyFile(file,resolve(output,file))));
+console.log('Built clean dist/ (public files only)');

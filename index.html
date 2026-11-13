@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es" translate="no" class="notranslate">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-LTNNzkfplsqdYEYoSo1YOBqlr034BePbas5EVYPgsQg='; style-src 'self'; style-src-attr 'unsafe-inline'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; worker-src 'none'; media-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <link rel="canonical" href="https://davidortegah.github.io/TuxFall/">
+  <meta name="author" content="David Ortega Hoyas">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eeeee7">
+  <meta data-i18n-content="description" name="description" content="TuxFall: un juego pixelado de caída libre. Tres carriles, un pingüino y un paracaídas con los segundos contados.">
+  <title>TuxFall</title>
+  <meta name="google" content="notranslate">
+  <meta name="googlebot" content="notranslate">
+  <link rel="icon" type="image/svg+xml" href="./src/favicon.svg">
+  <link rel="stylesheet" href="./src/style.css">
+  <meta property="og:image" content="https://davidortegah.github.io/TuxFall/src/social.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TuxFall: Tux en paracaídas, en pixel art monocromo.">
+  <meta name="twitter:image" content="https://davidortegah.github.io/TuxFall/src/social.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TuxFall">
+  <meta property="og:title" content="TuxFall">
+  <meta property="og:description" data-i18n-content="description" content="Un juego pixelado de caída libre con Tux. Tres carriles, pájaros, aviones y ciclo día/noche.">
+  <meta property="og:url" content="https://davidortegah.github.io/TuxFall/">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TuxFall">
+  <meta name="twitter:description" data-i18n-content="description" content="Juego de caída libre con Tux y estética pixelada monocroma.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":["VideoGame","WebApplication"],"name":"TuxFall","url":"https://davidortegah.github.io/TuxFall/","description":"Juego de caída libre con Tux, tres carriles, obstáculos y estética pixelada monocroma.","applicationCategory":"GameApplication","operatingSystem":"Any","gamePlatform":"Web browser","inLanguage":["es","en"],"isAccessibleForFree":true,"author":{"@type":"Person","name":"David Ortega Hoyas"},"license":"https://davidortegah.github.io/TuxFall/LICENSE"}</script>
+</head>
+<body class="game-page">
+  <noscript><p class="no-script">Activa JavaScript para jugar a TuxFall. / Enable JavaScript to play TuxFall. <a href="./about.html">Créditos y Licencia / Credits and License</a></p></noscript>
+  <main class="arcade" id="arcade" data-status="ready" data-input="keyboard" aria-label="Juego TuxFall" data-i18n-aria="gameLabel">
+    <p class="sr-only" data-i18n="description">TuxFall: un juego pixelado de caída libre. Tres carriles, un pingüino y un paracaídas con los segundos contados.</p>
+    <header class="hud" data-i18n-aria="scoreboard" aria-label="Marcador">
+      <div class="hud-controls">
+      <button id="pause" class="pause" aria-label="Pausar partida" disabled data-i18n-aria="pauseGame"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M8 7h5v18H8zm11 0h5v18h-5z" fill="currentColor"/></svg></button>
+      <button id="sound" class="sound-toggle" type="button" aria-label="Activar sonido" data-i18n-aria="unmuteSound" aria-pressed="true"></button>
+      </div>
+      <div class="hud-scores">
+        <div><small id="score-label" data-i18n="points">PUNTOS</small><output id="score" aria-labelledby="score-label" aria-live="off">00000</output></div>
+        <div><small id="best-label" data-i18n="best">RÉCORD</small><output id="best" aria-labelledby="best-label" aria-live="off">00000</output></div>
+      </div>
+      <span id="record-notice" data-i18n="newRecord" hidden>¡NUEVO RÉCORD!</span>
+    </header>
+
+    <div class="viewport" id="viewport">
+      <canvas id="game" tabindex="-1" width="360" height="520" aria-label="Tux cae por tres carriles. Esquiva obstáculos moviéndote a izquierda o derecha." data-i18n-aria="canvasDescription"></canvas>
+      <section class="overlay" id="overlay" aria-label="Menú de partida" data-i18n-aria="menuLabel">
+        <div class="menu-main">
+          <h1 class="logo"><img src="./src/tuxfall.svg" width="246" height="42" alt="TuxFall"></h1>
+          <p class="overlay-label" id="overlay-label">Jugar</p>
+          <button class="primary" id="start" aria-label="Iniciar partida" data-i18n-aria="startGame">
+            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M9 6 23 16 9 26Z" fill="currentColor"/></svg>
+          </button>
+          <div class="menu-stats">
+            <div><div class="record-heading"><span class="record-tux" id="record-tux-left" aria-hidden="true" hidden></span><span id="menu-best-label">TU RÉCORD</span><span class="record-tux" id="record-tux-right" aria-hidden="true" hidden></span></div><output id="menu-best">00000</output></div>
+            <div id="menu-score-row" hidden><span data-i18n="thisRun">ESTA PARTIDA</span><output id="menu-score">00000</output></div>
+          </div>
+        </div>
+
+        <div class="menu-details">
+
+          <div class="control-guide" data-i18n-aria="controlGuide" aria-label="Guía de controles">
+            <div id="guide-keyboard">
+              <p><kbd>←</kbd> <kbd>→</kbd> <span data-i18n="or">o</span> <kbd>A</kbd> <kbd>D</kbd> <span data-i18n="moveLane">Cambiar de carril</span></p>
+              <p><kbd>↓</kbd> <span data-i18n="or">o</span> <kbd>S</kbd> <span data-i18n="holdBoost">Mantener para acelerar</span></p>
+              <p><kbd>P</kbd> <kbd>Esc</kbd> <span data-i18n="pauseAction">Pausa</span> · <kbd data-i18n="spaceKey">Espacio</kbd> <span data-i18n="playAction">Jugar</span></p>
+            </div>
+            <div id="guide-touch" hidden>
+              <p><kbd>←</kbd> <kbd>→</kbd> <span data-i18n="touchMove">Toca un botón para cambiar de carril</span></p>
+              <p><kbd>↓</kbd> <span data-i18n="touchBoost">Mantén el botón para acelerar</span></p>
+              <p><kbd>Ⅱ</kbd> <span data-i18n="touchPause">Toca para pausar</span> · <kbd>▷</kbd> <span data-i18n="playAction">Jugar</span></p>
+            </div>
+          </div>
+          <div class="language-picker" role="group" aria-label="Idioma" data-i18n-aria="languageLabel"><button type="button" class="language-flag" data-language-button="es" aria-label="Cambiar a español" data-i18n-aria="languageSpanish" title="Cambiar a español" data-i18n-title="languageSpanish" aria-pressed="true"><svg viewBox="0 0 36 24" aria-hidden="true" focusable="false" shape-rendering="crispEdges"><path fill="currentColor" d="M0 0h36v24H0z"/><path class="flag-paper" d="M0 6h36v12H0z"/><path fill="currentColor" d="M9 9h7v6h-1v2h-2v1h-1v-1h-2v-2H9zM9 7h2v2H9zm3-1h2v3h-2zm3 1h2v2h-2z"/><path class="flag-paper" d="M11 10h1v4h-1zm3 0h1v4h-1z"/></svg></button><button type="button" class="language-flag" data-language-button="en" aria-label="Cambiar a inglés" data-i18n-aria="languageEnglish" title="Cambiar a inglés" data-i18n-title="languageEnglish" aria-pressed="false"><svg viewBox="0 0 36 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M0 0h36v24H0z"/><path class="flag-paper" d="m0 0 36 24m0-24L0 24" stroke="var(--flag-paper)" stroke-width="6"/><path d="m0 0 36 24m0-24L0 24" stroke="currentColor" stroke-width="2"/><path class="flag-paper" d="M14 0h8v24h-8zM0 8h36v8H0z"/><path fill="currentColor" d="M16 0h4v24h-4zM0 10h36v4H0z"/></svg></button></div>
+          <footer class="menu-footer">
+            <button class="cookie-link" id="cookie-open" data-i18n="cookieSettings">Configurar cookies</button>
+            <a href="./about.html" target="_blank" rel="noopener" data-i18n="creditsLicense">Créditos y Licencia</a>
+            <small>© 2026 David Ortega Hoyas</small>
+          </footer>
+          <section class="cookie-banner" id="cookie-banner" aria-label="Preferencias de cookies" data-i18n-aria="cookieQuestion">
+            <strong data-i18n="cookieQuestion">¿Guardamos tu récord?</strong>
+            <p><span data-i18n="cookieSummary">Récord local sin caducidad del juego y cookie de respaldo renovable. Puedes jugar sin aceptar.</span> <a href="./cookies.html" target="_blank" rel="noopener" data-i18n="cookiePolicy">Política de cookies</a>.</p>
+            <div class="cookie-actions"><button data-cookies="yes" data-i18n="accept">Aceptar</button><button data-cookies="no" data-i18n="reject">Rechazar</button></div>
+          </section>
+        </div>
+      </section>
+    </div>
+
+    <nav class="touch" id="touch-controls" aria-label="Controles táctiles" hidden data-i18n-aria="touchControls">
+      <button id="left" aria-label="Mover al carril izquierdo" data-i18n-aria="left">←</button>
+      <button id="boost" data-i18n-title="boost" aria-label="Mantener pulsado para acelerar" title="Mantén pulsado para acelerar" data-i18n-aria="boost">↓</button>
+      <button id="right" aria-label="Mover al carril derecho" data-i18n-aria="right">→</button>
+    </nav>
+    <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+  </main>
+
+  <dialog id="cookie-settings" aria-labelledby="cookie-heading">
+    <h2 id="cookie-heading" data-i18n="cookieDialogTitle">Tu récord, tú decides.</h2>
+    <p id="cookie-choice"></p>
+    <p data-i18n="cookieDialogBody">Tu récord se guarda localmente sin caducidad del juego, con una cookie de respaldo. Rechazar elimina ambas copias; el récord de esta visita queda en memoria.</p>
+    <p data-i18n="cookieRenewal">Renovable significa que cada visita o guardado puede fijar una nueva caducidad hasta 400 días desde ese momento, sin superar los 720 días desde tu permiso. Visitar no amplía ese permiso: al vencer tendrás que aceptar de nuevo para reactivar el guardado.</p>
+    <p data-i18n="cookieDurability">El récord local no se borra por vencer la cookie o el permiso; puede recuperarse al aceptar de nuevo. Renovar no garantiza conservarlo para siempre: tú o el navegador podéis borrar los datos antes. Sin renovar, la cookie caduca en su fecha prevista.</p>
+    <p data-i18n="languageStorage">El idioma que elijas se recuerda aparte mediante una cookie funcional y almacenamiento local. Rechazar guardar el récord no cambia el idioma. Su cookie se renueva hasta 400 días desde cada visita, independientemente del permiso del récord.</p>
+    <a href="./cookies.html" target="_blank" rel="noopener" data-i18n="cookieConsult">Consultar política de cookies</a>
+    <div class="cookie-actions"><button data-cookies="yes" data-i18n="accept">Aceptar</button><button data-cookies="no" data-i18n="rejectDelete">Rechazar y borrar</button></div>
+    <button id="cookie-close" data-i18n="close">Cerrar</button>
+  </dialog>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
