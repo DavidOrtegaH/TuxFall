@@ -28,3 +28,12 @@ test('R46/R47: positive record triggers once; zero record does not; latest event
  assert.deepEqual(display.read(1010,10.6,'playing'),{score:1000,hidden:false});
  assert.deepEqual(scoreFeedback(999,1000,999,false),{newRecord:true,milestones:[1000]});
 });
+
+test('R48: record display shares blink timing but stays independent of score milestones',()=>{
+ const points=createScoreDisplay(),record=createScoreDisplay();
+ points.trigger(701,10);record.trigger(701,10);
+ for(const time of [10,10.2,10.4,10.6,10.8,11,11.21])assert.deepEqual(points.read(720,time,'playing'),record.read(720,time,'playing'));
+ points.trigger(1000,20);
+ assert.deepEqual(record.read(1020,20.3,'playing'),{score:1020,hidden:false});
+ assert.deepEqual(points.read(1020,20.3,'playing'),{score:1000,hidden:true});
+});

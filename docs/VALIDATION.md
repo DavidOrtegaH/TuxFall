@@ -91,3 +91,10 @@ Fecha: 13 de noviembre de 2026. Esto no declara una versión estable ni sustituy
 - Pausa/fin descartan el efecto; nueva partida muestra cifras reales. Movimiento reducido conserva la detención sin parpadear. Sonido, récord persistente y anuncios no dependen del efecto visual.
 - 39 pruebas y build correctos. Casos nuevos cubren las seis fases, avance de puntuación real, recuperación, pausa/fin/reinicio, sustitución por otro evento, coincidencia y exclusión del récord cero.
 - Navegador, partida aislada iniciada en 499 con récord previo 499: marcador 00500 mientras récord real mostraba 00501. Muestreo de 120 frames confirma congelación con cuenta real en avance, fase oculta y recuperación de la cifra real. Récord del usuario conservado en 1761; archivos temporales retirados.
+
+## Revisión v13: efecto del récord del HUD
+
+- El primer cruce del récord previo positivo fija y parpadea también su cifra durante 1.2 s, sincronizada con PUNTOS. Instancias independientes evitan que posteriores hitos de 500 reactiven RÉCORD. El cartel de nuevo récord permanece.
+- Se reutilizan cancelación en pausa/fin y opción de movimiento reducido; récord real y guardado continúan actualizándose.
+- 40 pruebas, comprobación sintáctica y build correctos, incluida sincronización e independencia de ambos marcadores.
+- Navegador con récord aislado 499: verificados congelación, fase de parpadeo, cartel visible y recuperación de la cifra real (cuatro comprobaciones positivas). Récord real del usuario conservado; fixtures retiradas.

@@ -17,6 +17,7 @@ const storage=createPersistence(document,location,()=>Date.now(),deviceStorage);
 const soundPreference=createSoundPreference(document,location);
 const sound=createSoundEngine({initialEnabled:soundPreference.value});
 const scoreDisplay=createScoreDisplay();
+const bestDisplay=createScoreDisplay();
 $('record-tux-left').innerHTML=tuxExclamation;
 $('record-tux-right').innerHTML=tuxExclamation;
 try{localStorage.removeItem('tuxfall-best');}catch{}
@@ -50,7 +51,9 @@ function sync(){
  const display=scoreDisplay.read(game.score,game.time,game.status,reduced.matches);
  $('score').textContent=String(display.score).padStart(5,'0');
  $('score').classList.toggle('score-blink-hidden',display.hidden);
- $('best').textContent=String(best).padStart(5,'0');
+ const recordDisplay=bestDisplay.read(best,game.time,game.status,reduced.matches);
+ $('best').textContent=String(recordDisplay.score).padStart(5,'0');
+ $('best').classList.toggle('score-blink-hidden',recordDisplay.hidden);
  $('menu-best').textContent=String(best).padStart(5,'0');$('menu-score').textContent=String(game.score).padStart(5,'0');
  $('touch-controls').hidden=inputMode!=='touch'||!['playing','paused'].includes(game.status);
  const {bg}=paletteAt(game.time);$('arcade').style.setProperty('--sky',`rgb(${bg},${bg},${bg})`);
@@ -108,6 +111,7 @@ function frame(now){const before=game.status,previousScore=game.score;step(game,
  const feedback=scoreFeedback(previousScore,game.score,recordAtStart,recordBeaten);
  if(feedback.newRecord||feedback.milestones.length)scoreDisplay.trigger(feedback.milestones.at(-1)??game.score,game.time);
  if(game.score>best)best=game.score;
+ if(feedback.newRecord)bestDisplay.trigger(best,game.time);
  if(feedback.newRecord){recordBeaten=true;noticeUntil=game.time+4;announce(t('recordAnnouncement',{best:recordAtStart}));void sound.play('record');}
  feedback.milestones.forEach((_,index)=>void sound.play('milestone',(feedback.newRecord ? .34 : 0)+index*.22));
  if(before==='playing'&&game.status==='over'){clearBoost();storage.saveBest(best);announce(`${recordBeaten?t('newRecord')+' ':''}${t('endAnnouncement',{score:game.score})}`);}
