@@ -1,54 +1,91 @@
-# TuxFall ↓
+# [Jugar a TuxFall](https://davidortegah.github.io/TuxFall/)
 
-Juego web monocromo de caída libre con Tux. Tres carriles, pájaros, aviones, paracaídas degradable y ciclo día/noche.
+# TuxFall
 
-La interfaz contiene solo el juego: marco centrado en PC y viewport completo en móvil/tablet. Los menús legibles incluyen logo pixelado, Play/reintento, récord, guía según teclado o entrada táctil y banderas monocromas de España / Reino Unido justo debajo de los controles para elegir idioma. Al terminar, la puntuación de la partida aparece debajo del récord. Cookies, licencia y créditos están disponibles dentro del menú y la pausa.
+TuxFall es un juego de caída libre con Tux, el pingüino de Linux, como protagonista. Tiene una estética monocroma y pixelada, tres carriles y una partida que se complica a medida que aumenta la velocidad. Hay que esquivar pájaros y aviones mientras el paracaídas se deteriora y el cielo pasa del día a la noche.
 
-Repositorio oficial: https://github.com/DavidOrtegaH/TuxFall. **Jugar en Internet: https://davidortegah.github.io/TuxFall/**. El enlace del repositorio muestra el código; el enlace de GitHub Pages abre el juego.
+La idea parte de los juegos sencillos que puedes abrir y jugar en unos segundos, como el Dinosaurio de Google, pero con un recorrido vertical. En PC, la ventana de juego queda centrada; en móvil y tablet ocupa la pantalla. Está disponible en español e inglés, tiene sonido opcional y permite guardar el récord.
 
-Versión estable **1.1.1**, aprobada por David Ortega Hoyas. `main` es la principal; `features` desarrolla, `develop` integra y `release` publica.
+## Lo que he aprendido y las dificultades del proyecto
 
-## Ejecutar
-Requiere Node.js 22 o superior. No necesita instalar paquetes.
+Con esta aplicación he aprendido a organizar un juego con JavaScript, módulos ES, Canvas y CSS, sin recurrir a un framework ni añadir dependencias de producción. Separar las reglas del juego del dibujo y de la interfaz me ha servido para probar las colisiones, la puntuación y los cambios de velocidad sin depender del navegador para cada comprobación.
+
+Una de las partes que más ajustes necesitó fue la dificultad. Al principio, llegar a la velocidad máxima no suponía demasiado desafío. Fui ajustando la frecuencia y la distribución de los obstáculos, añadiendo filas con un único hueco libre y manteniendo una salida posible. Para comprobar los márgenes de reacción, incorporé simulaciones con distintas semillas, velocidades y tasas de fotogramas. Me sirvieron para detectar situaciones injustas, aunque no sustituyen las sensaciones de una partida real.
+
+El ciclo de día y noche también dio problemas: una inversión demasiado brusca resultaba incómoda y algunos tonos podían hacer que los obstáculos se confundieran con el fondo. La solución fue suavizar la transición y usar contornos claros y oscuros que mantuvieran las siluetas visibles durante todo el ciclo.
+
+Con los controles aprendí que no basta con escuchar las flechas del teclado. El foco podía quedarse en los botones y hacer que las teclas navegaran por la interfaz en lugar de controlar a Tux. Ajusté la captura de las teclas durante la partida y la devolución del foco al juego, conservando Tab para acceder a los botones. También adapté la guía y los controles a la entrada táctil.
+
+El guardado del récord me llevó a distinguir entre cookies, almacenamiento local y consentimiento. Separé el guardado opcional de la puntuación de las preferencias de idioma y sonido, y contemplé el caso de que el navegador bloqueara el almacenamiento. El aviso inicial acabó en un diálogo independiente porque, dentro del menú, añadía altura y provocaba una barra de desplazamiento en la ventana del juego.
+
+La publicación en GitHub Pages tuvo dos dificultades concretas. Primero, el entorno de despliegue solo permitía publicar desde main, mientras que el proyecto utiliza release para las versiones terminadas. Después apareció un fallo de caché: el navegador podía cargar el HTML nuevo con un módulo de traducciones antiguo e impedir el arranque. Ajusté la rama permitida y añadí una huella de contenido a los nombres de los recursos y a sus importaciones. Así, cada página carga los módulos de su mismo build.
+
+También he aprendido a trabajar con SpecDD: dejar por escrito el comportamiento esperado antes de modificarlo y comprobar después sus criterios de aceptación. Mantener las ramas de desarrollo, integración y publicación separadas me ha ayudado a ordenar los cambios y conservar las versiones anteriores.
+
+El resultado es un juego que se puede abrir desde un enlace, jugar con teclado o controles táctiles y usar sin aceptar el guardado del récord. He conseguido mantener una interfaz centrada en la partida, con dificultad progresiva, preferencias de idioma y sonido, marcadores animados y un despliegue que comprueba la versión publicada.
+
+## Controles
+
+| Acción | Teclado | Móvil y tablet |
+| --- | --- | --- |
+| Cambiar de carril | ← / → o A / D | Botones de izquierda y derecha |
+| Acelerar | Mantener ↓ o S | Mantener el botón ↓ |
+| Pausar o reanudar | P, Escape o botón de pausa | Botón de pausa |
+| Iniciar o reintentar | Espacio o botón de juego | Botón de juego |
+| Activar o silenciar el sonido | Botón de altavoz | Botón de altavoz |
+
+Los cambios de carril son inmediatos y solo permiten pasar al carril contiguo. Los pájaros ocupan un carril y los aviones dos. La velocidad aumenta hasta un límite y se puede acelerar de forma voluntaria.
+
+Cada 500 puntos y al superar un récord anterior, el marcador se detiene visualmente y parpadea unos instantes; la cuenta real sigue avanzando. Si está activada la preferencia de movimiento reducido, se omite el parpadeo.
+
+## Ejecutar el proyecto
+
+Requiere Node.js 22 o superior. No hace falta instalar paquetes.
 
 ```sh
 npm run dev
 ```
 
-Abrir http://127.0.0.1:5173. Flechas o A/D para cambiar de carril; mantener ↓/S para acelerar; espacio para iniciar; P/Escape para pausar. También hay botones táctiles. Tras aceptar, el récord se guarda localmente sin caducidad del juego y con cookie de respaldo renovable de hasta 400 días. Se renueva la decisión a los 720 días y se puede revocar desde «Configurar cookies». El navegador o el usuario pueden borrar datos; no se promete persistencia indefinida. Ver [política de cookies](https://github.com/DavidOrtegaH/TuxFall/blob/develop/cookies.html).
-
-La velocidad llega a 340 px/s (430 manteniendo aceleración); las filas pasan progresivamente de 1.8 a 0.74 segundos. Aparecen filas de dos pájaros que dejan un solo hueco y favorecen cambiar de carril, sin perseguir al jugador. A la velocidad máxima, un avión completo conserva unos 0.69 s de margen visible antes de colisionar. Una simulación con respuesta de 220 ms y 110 ms entre cambios comprueba 72 combinaciones de semillas, aceleración y tasas de 30/120 FPS durante ocho minutos; verifica margen mecánico, no garantiza una dificultad adecuada para todas las personas.
-
-El título es `TuxFall`. Español es el idioma predeterminado; la elección expresa de inglés o español se recuerda mediante la cookie funcional `tuxfall_language` (400 días renovables) y una copia local. Es independiente del guardado opcional del récord. El selector traduce interfaz, mensajes accesibles y páginas de privacidad/créditos/licencia, manteniendo intacto el texto jurídico original de LICENSE. `html[lang]` refleja el idioma visible; `translate="no"` y metadatos `notranslate` indican que no se desea traducción automática. La traducción manual, extensiones o ajustes del navegador quedan bajo control del usuario.
+Abrir [http://127.0.0.1:5173](http://127.0.0.1:5173).
 
 ```sh
 npm test
 npm run build
 ```
 
-## Stack y SpecDD
-JavaScript ES modules, Canvas 2D y CSS; herramientas y pruebas nativas de Node. Sin framework, servicios, fuentes remotas ni dependencias de producción. Canvas mantiene el pixel art consistente y el modelo independiente permite verificar las reglas.
+El build genera la carpeta `dist`. Para probarla con la misma subruta que GitHub Pages:
 
-La fuente de comportamiento es [specs/001-tuxfall.md](https://github.com/DavidOrtegaH/TuxFall/blob/develop/specs/001-tuxfall.md). Flujo: actualizar requisitos y criterios → modificar modelo → verificar pruebas → renderizado y comprobación visual. Las pruebas citan los identificadores de requisito. No se requiere plataforma de SpecDD externa.
+```sh
+node scripts/serve.mjs --root dist --base /TuxFall/ --port 5174
+```
 
-## GitHub Pages
-El workflow prueba y construye las cuatro ramas y los PRs. Publica automáticamente los pushes de `release`, y también admite ejecución manual desde esa rama. `features`, `develop`, `main` y los PRs no despliegan directamente. Pages usa GitHub Actions como origen; el entorno solo admite `release`.
+Abrir [http://127.0.0.1:5174/TuxFall/](http://127.0.0.1:5174/TuxFall/).
 
-URL pública: https://davidortegah.github.io/TuxFall/. La versión publicada puede comprobarse en https://davidortegah.github.io/TuxFall/version.json. Recursos relativos y sitemap en la subruta. Para revisar el artefacto local: `npm run build` y `node scripts/serve.mjs --root dist --base /TuxFall/ --port 5174`.
+## Preferencias y privacidad
 
-La auditoría y sus límites están en [docs/AUDIT-2026-11-13.md](docs/AUDIT-2026-11-13.md). No se garantiza la indexación en buscadores. La imagen de enlaces compartidos se genera a partir del logo y sprites existentes, sin modificar el juego.
+El sonido está desactivado por defecto. La elección de sonido y de idioma se recuerda mediante preferencias funcionales, independientes del permiso para guardar el récord.
 
-## Revisión manual
-Comprobar: controles táctiles y teclado; pausa al cambiar de pestaña; aspecto del paracaídas a 0/25/50 segundos; ciclo completo de 60 segundos; cambio contiguo con líneas hacia la dirección elegida; récord al recargar; pantalla estrecha y preferencia de movimiento reducido. Las pruebas del modelo no reemplazan esta revisión visual. La página local `tests/visual-qa.html` muestra escenas de día, crepúsculo y noche con ambos obstáculos; no se incluye en el build público.
+El récord solo se guarda de forma persistente si se acepta. Se puede rechazar, decidir más tarde o cambiar la decisión desde «Configurar cookies». El almacenamiento local del récord no tiene caducidad impuesta por el juego; la cookie de respaldo dura hasta 400 días renovables, sin superar los 720 días del consentimiento. El usuario o el navegador pueden borrar esos datos antes.
 
-El favicon SVG utiliza el mismo sprite que Tux. Se puede regenerar con `npm run build:icon`; conserva los créditos de Tux y se copia al build junto a los recursos de `src`.
+No hay cuentas, publicidad, analítica ni clasificación en un servidor. Más información en la [política de cookies](https://davidortegah.github.io/TuxFall/cookies.html).
 
-## Licencia, autoría y contribuciones
-Copyright © 2026 David Ortega Hoyas sobre sus aportaciones originales. [PolyForm Noncommercial 1.0.0](LICENSE) permite los usos no comerciales y los demás fines que define expresamente. Exige conservar los avisos `Required Notice:` de [NOTICE.md](NOTICE.md), junto con la licencia o su URL. No permite explotar comercialmente el juego fuera de los fines autorizados. Incluye permisos específicos para determinadas organizaciones sin ánimo de lucro, educativas y públicas, con independencia de su financiación; el texto oficial es el que rige. No es una prohibición absoluta de todo movimiento de dinero en cualquier contexto.
+## Organización y publicación
 
-El código es público y consultable, pero esta licencia no es «open source» según la [definición OSI](https://opensource.org/osd), que exige permitir también uso comercial. No se concede exclusividad sobre la idea del juego ni sobre Tux. La licencia obliga a preservar atribución, pero no puede impedir técnicamente que alguien incumpla o cree un fork.
+- `features`: desarrollo de cambios.
+- `develop`: integración y comprobación.
+- `release`: preparación y publicación de versiones.
+- `main`: rama principal con la versión estable.
 
-No se aceptan contribuciones externas: [CONTRIBUTING.md](CONTRIBUTING.md). Solo el propietario integra cambios. Flujo `features` → `develop` → `release` → `main`: [convenciones de Git](docs/BRANCHING.md). Versión estable `1.1.1`, aprobada por el propietario.
+El flujo es `features` → `develop` → `release` → `main`. Los commits siguen Conventional Commits en inglés. GitHub Actions ejecuta las pruebas y el build; los cambios de `release` se publican automáticamente en GitHub Pages. También se puede lanzar el despliegue manualmente desde esa rama.
 
-El sonido sintetizado acompaña los cambios de carril, los nuevos récords y cada 500 puntos. Silenciado por defecto, el botón de altavoz junto a pausa recuerda tu elección expresa con la cookie funcional tuxfall_sound (hasta 400 días renovables), independiente del permiso del récord. Al superar una marca previa, el menú final muestra un Tux a cada lado de NUEVO RÉCORD.
- Al alcanzar cada 500 puntos o superar un récord previo positivo, el marcador se detiene visualmente y parpadea durante 1.2 segundos mientras la cuenta real continúa. Con movimiento reducido se omite el parpadeo.
+La versión estable actual es **1.1.1**. Las versiones anteriores se conservan en [Releases](https://github.com/DavidOrtegaH/TuxFall/releases), y la versión servida se puede consultar en [version.json](https://davidortegah.github.io/TuxFall/version.json).
+
+La especificación está en [specs/001-tuxfall.md](specs/001-tuxfall.md), las comprobaciones en [docs/VALIDATION.md](docs/VALIDATION.md) y las convenciones de ramas en [docs/BRANCHING.md](docs/BRANCHING.md). La [auditoría previa a la publicación](docs/AUDIT-2026-11-13.md) recoge las revisiones de seguridad, SEO, accesibilidad y sus limitaciones.
+
+## Licencia y créditos
+
+Copyright © 2026 David Ortega Hoyas sobre sus aportaciones originales. El proyecto se distribuye bajo [PolyForm Noncommercial 1.0.0](LICENSE): el código es público y permite los usos no comerciales y los demás fines definidos en la licencia. No es una licencia de código abierto según la definición de la OSI.
+
+Tux fue creado por Larry Ewing con GIMP. Las atribuciones y los avisos que deben conservarse están en [NOTICE.md](NOTICE.md). La licencia no concede exclusividad sobre Tux ni sobre la idea del juego.
+
+El proyecto lo mantiene exclusivamente David Ortega Hoyas y no acepta contribuciones externas. Consulta [CONTRIBUTING.md](CONTRIBUTING.md) y [SECURITY.md](SECURITY.md).
