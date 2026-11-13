@@ -13,7 +13,9 @@ Requiere Node.js 22 o superior. No necesita instalar paquetes.
 npm run dev
 ```
 
-Abrir http://127.0.0.1:5173. Flechas o A/D para cambiar de carril; mantener ↓/S para acelerar; espacio para iniciar; P/Escape para pausar. También hay botones táctiles. El récord se guarda en una cookie opcional solo tras aceptar; se puede rechazar o revocar desde «Configurar cookies». Ver [política de cookies](https://github.com/DavidOrtegaH/TuxFall/blob/develop/cookies.html).
+Abrir http://127.0.0.1:5173. Flechas o A/D para cambiar de carril; mantener ↓/S para acelerar; espacio para iniciar; P/Escape para pausar. También hay botones táctiles. Tras aceptar, el récord se guarda localmente sin caducidad del juego y con cookie de respaldo renovable de hasta 400 días. Se renueva la decisión a los 720 días y se puede revocar desde «Configurar cookies». El navegador o el usuario pueden borrar datos; no se promete persistencia indefinida. Ver [política de cookies](https://github.com/DavidOrtegaH/TuxFall/blob/develop/cookies.html).
+
+La velocidad llega a 260 px/s (320 manteniendo aceleración); las oleadas pasan progresivamente de 1.8 a 1.0 segundos. A la velocidad máxima, un avión completo conserva unos 0.93 s de margen visible antes de colisionar. Una simulación con respuesta de 300 ms y 150 ms entre cambios comprueba 36 combinaciones durante ocho minutos; esto verifica margen mecánico, no garantiza una dificultad adecuada para todas las personas.
 
 ```sh
 npm test
@@ -31,7 +33,9 @@ El workflow del prototipo prueba y construye en las cuatro ramas y en PRs; despl
 Todas las rutas de recursos son relativas para funcionar en `/TuxFall/`. El repositorio está creado y sincronizado. Pages sigue sin publicar: se habilitará cuando exista una versión estable lista para desplegar.
 
 ## Revisión manual
-Comprobar: controles táctiles y teclado; pausa al cambiar de pestaña; aspecto del paracaídas a 0/25/50 segundos; ciclo completo de 60 segundos; cambio contiguo con impulso contrario; récord al recargar; pantalla estrecha y preferencia de movimiento reducido. Las pruebas del modelo no reemplazan esta revisión visual.
+Comprobar: controles táctiles y teclado; pausa al cambiar de pestaña; aspecto del paracaídas a 0/25/50 segundos; ciclo completo de 60 segundos; cambio contiguo con líneas hacia la dirección elegida; récord al recargar; pantalla estrecha y preferencia de movimiento reducido. Las pruebas del modelo no reemplazan esta revisión visual. La página local `tests/visual-qa.html` muestra escenas de día, crepúsculo y noche con ambos obstáculos; no se incluye en el build público.
+
+El favicon SVG utiliza el mismo sprite que Tux. Se puede regenerar con `npm run build:icon`; conserva los créditos de Tux y se copia al build junto a los recursos de `src`.
 
 ## Licencia, autoría y contribuciones
 Copyright © 2026 David Ortega Hoyas sobre sus aportaciones originales. [PolyForm Noncommercial 1.0.0](LICENSE) permite los usos no comerciales y los demás fines que define expresamente. Exige conservar los avisos `Required Notice:` de [NOTICE.md](NOTICE.md), junto con la licencia o su URL. No permite explotar comercialmente el juego fuera de los fines autorizados. Incluye permisos específicos para determinadas organizaciones sin ánimo de lucro, educativas y públicas, con independencia de su financiación; el texto oficial es el que rige. No es una prohibición absoluta de todo movimiento de dinero en cualquier contexto.

@@ -2,7 +2,9 @@ import {createGame,move,step} from './model.js';
 import {render,paletteAt} from './render.js';
 import {createPersistence} from './persistence.js';
 const $=id=>document.getElementById(id),ctx=$('game').getContext('2d');
-const storage=createPersistence(document,location);
+let deviceStorage=null;
+try{deviceStorage=localStorage;}catch{}
+const storage=createPersistence(document,location,()=>Date.now(),deviceStorage);
 try{localStorage.removeItem('tuxfall-best');}catch{}
 let game=createGame(),best=storage.readBest(),last=0,recordAtStart=best,recordBeaten=false,noticeUntil=0;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -64,7 +66,7 @@ window.addEventListener('keydown',e=>{
 window.addEventListener('keyup',e=>{boostKeys.delete(e.key.toLowerCase());updateBoost();});
 function loseFocus(){clearBoost();if(game.status==='playing')pause();}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)loseFocus();});window.addEventListener('blur',loseFocus);
-function chooseCookies(allowed){storage.choose(allowed);const saved=allowed&&storage.saveBest(best);$('cookie-banner').hidden=true;$('cookie-settings').close();announce(allowed?(saved?'Guardado del récord activado.':'El navegador no permite guardar el récord. Se conservará durante esta visita.'):'Guardado desactivado. Cookie del récord eliminada; puedes seguir jugando.');}
+function chooseCookies(allowed){storage.choose(allowed);if(allowed)best=Math.max(best,storage.readBest());const saved=allowed&&storage.saveBest(best);$('cookie-banner').hidden=true;$('cookie-settings').close();announce(allowed?(saved?'Récord guardado sin caducidad impuesta por el juego.':'El navegador no permite guardar el récord. Se conservará durante esta visita.'):'Guardado desactivado. Récord persistente eliminado; puedes seguir jugando.');}
 for(const button of document.querySelectorAll('[data-cookies]'))button.addEventListener('click',()=>chooseCookies(button.dataset.cookies==='yes'));
 $('cookie-banner').hidden=!!storage.consent;
 $('cookie-open').addEventListener('click',()=>{loseFocus();$('cookie-choice').textContent=storage.consent?.choice==='yes'?'Guardado del récord activado.':'Guardado del récord desactivado.';$('cookie-settings').showModal();});

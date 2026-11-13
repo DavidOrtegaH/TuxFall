@@ -16,3 +16,14 @@ Fecha: 13 de noviembre de 2026. Esto no declara una versión estable ni sustituy
 - Escritorio 1280×800: marco 440×760 centrado (x=420, y=20); récord debajo de Play y guía debajo del récord, sin scroll externo.
 - Viewports 390×844 y 320×568: marco desde (0,0) ocupando todo el viewport, sin scroll externo ni desbordamiento horizontal del menú. El menú de inicio cabe completo a 320×568.
 - Comprobados en navegador: inicio, reintento con récord y puntuación de la partida en ese orden, pausa y continuación. Consola sin errores. Guía seleccionada por capacidad de entrada y último uso de teclado/táctil, no por anchura; los viewports emulados siguen teniendo teclado/ratón. La comprobación física en teléfono/tablet continúa pendiente para la 1.0.
+
+## Revisión v4: dificultad, contraste y conservación del récord
+
+24 pruebas correctas, build y comprobaciones sintácticas correctos. Consola del navegador sin errores durante la revisión.
+
+- Mantiene 260 px/s y 320 px/s al acelerar; oleadas progresan de 1.8 a 1.0 s en 75 s. Margen mínimo de un avión completo: `(520 - 18 - 174 - 31) / 320 = 0.928125 s`.
+- Simulación reproducible: 12 semillas × 3 patrones de aceleración × 8 minutos, con respuesta de 300 ms y 150 ms entre movimientos consecutivos. Todas sobreviven. Verifica que esos controles y márgenes permiten esquivar; no demuestra una experiencia desafiante para todas las personas. El ajuste humano y en teléfono/tablet real sigue pendiente para 1.0.
+- Contraste de contornos probado en los 256 tonos grises y en 6 001 instantes del ciclo; al menos un contorno >=3:1. Opacidad de contornos comprobada en día, crepúsculo y noche. Revisadas visualmente doce escenas con ambos obstáculos, paracaídas, cuerdas y líneas direccionales en `tests/visual-qa.html` (excluido del build).
+- Favicon SVG inspeccionado con Tux y paracaídas; cuerpo compartido con el sprite jugable. Se regenera durante cada build y se referencia desde juego y política de cookies.
+- Persistencia v2 probada: no leer/escribir récord sin nuevo consentimiento, migrar la cookie anterior solo al aceptar, conservar el récord local sin caducidad de aplicación, renovar cookies dentro del máximo de 400 días y mantener fija la decisión de 720 días. Rechazo/revocación elimina las dos copias, incluso con otra pestaña abierta. Probados fallos de cookies/localStorage y recuperación tras renovar el permiso años después.
+- Navegador local: se pidió la nueva decisión, se recuperó el récord anterior al aceptar y se conservó después de recargar. Cambiar duración no convirtió automáticamente la aceptación antigua en un consentimiento nuevo.
