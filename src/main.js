@@ -34,7 +34,8 @@ setInputMode(touchInput.matches?'touch':'keyboard');
 touchInput.addEventListener('change',()=>setInputMode(touchInput.matches?'touch':'keyboard'));
 document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.pointerType==='pen')setInputMode('touch');});
 const boostKeys=new Set();let touchBoost=false;
-let previousStatus,soundState;
+let previousStatus,soundState,renderedStatus,renderedReduced;
+function setText(id,value){const node=$(id);if(node.textContent!==value)node.textContent=value;}
 function announce(text){$('announcement').textContent=text;}
 function clearBoost(){boostKeys.clear();touchBoost=false;game.boost=false;}
 function updateBoost(){game.boost=game.status==='playing'&&(touchBoost||boostKeys.size>0);}
@@ -49,12 +50,12 @@ function sync(){
  syncSound();
  const paused=game.status==='paused',over=game.status==='over';
  const display=scoreDisplay.read(game.score,game.time,game.status,reduced.matches);
- $('score').textContent=String(display.score).padStart(5,'0');
+ setText('score',String(display.score).padStart(5,'0'));
  $('score').classList.toggle('score-blink-hidden',display.hidden);
  const recordDisplay=bestDisplay.read(best,game.time,game.status,reduced.matches);
- $('best').textContent=String(recordDisplay.score).padStart(5,'0');
+ setText('best',String(recordDisplay.score).padStart(5,'0'));
  $('best').classList.toggle('score-blink-hidden',recordDisplay.hidden);
- $('menu-best').textContent=String(best).padStart(5,'0');$('menu-score').textContent=String(game.score).padStart(5,'0');
+ setText('menu-best',String(best).padStart(5,'0'));setText('menu-score',String(game.score).padStart(5,'0'));
  $('touch-controls').hidden=inputMode!=='touch'||!['playing','paused'].includes(game.status);
  const {bg}=paletteAt(game.time);$('arcade').style.setProperty('--sky',`rgb(${bg},${bg},${bg})`);
  $('boost').classList.toggle('active',game.boost);
@@ -64,7 +65,9 @@ function sync(){
  $('arcade').dataset.status=game.status;
  $('pause').disabled=game.status==='ready'||over;
  $('pause').innerHTML=paused?playIcon:pauseIcon;$('pause').setAttribute('aria-label',t(paused?'resumeGame':'pauseGame'));
+ const focusWasInMenu=$('overlay').contains(document.activeElement);
  $('overlay').hidden=game.status==='playing';
+ if(game.status==='playing'&&focusWasInMenu)$('game').focus({preventScroll:true});
  $('overlay-label').textContent=t(over?'endLabel':paused?'paused':'playAction');
  $('overlay-label').hidden=game.status==='playing';
  $('menu-best-label').textContent=t(over&&recordBeaten?'newRecordLabel':'yourBest');
@@ -82,13 +85,14 @@ $('left').addEventListener('click',()=>changeLane(-1));$('right').addEventListen
 $('boost').addEventListener('pointerdown',e=>{if(game.status!=='playing')return;e.preventDefault();$('boost').setPointerCapture(e.pointerId);touchBoost=true;updateBoost();});
 for(const event of ['pointerup','pointercancel','lostpointercapture'])$('boost').addEventListener(event,()=>{touchBoost=false;updateBoost();});
 window.addEventListener('keydown',e=>{
+ if(e.metaKey||e.ctrlKey||e.altKey)return;
  if(!e.metaKey&&!e.ctrlKey&&!e.altKey)setInputMode('keyboard');
  const key=e.key.toLowerCase();if($('cookie-settings').open||e.target.closest?.('select,input,textarea'))return;
  if(game.status==='playing'&&key.startsWith('arrow')){
   e.preventDefault();e.stopImmediatePropagation();$('game').focus({preventScroll:true});
  }
  if(!['arrowleft','arrowright','arrowdown','a','d','s',' ','p','escape'].includes(key))return;
- if(e.target instanceof HTMLButtonElement&&key===' ')return;
+ if(e.target.closest?.('button,a')&&key===' ')return;
  e.preventDefault();if(e.repeat)return;
  if(key==='arrowdown'||key==='s'){boostKeys.add(key);updateBoost();}
  if(key==='arrowleft'||key==='a')changeLane(-1);if(key==='arrowright'||key==='d')changeLane(1);
@@ -115,5 +119,8 @@ function frame(now){const before=game.status,previousScore=game.score;step(game,
  if(feedback.newRecord){recordBeaten=true;noticeUntil=game.time+4;announce(t('recordAnnouncement',{best:recordAtStart}));void sound.play('record');}
  feedback.milestones.forEach((_,index)=>void sound.play('milestone',(feedback.newRecord ? .34 : 0)+index*.22));
  if(before==='playing'&&game.status==='over'){clearBoost();storage.saveBest(best);announce(`${recordBeaten?t('newRecord')+' ':''}${t('endAnnouncement',{score:game.score})}`);}
- render(ctx,game,reduced.matches);sync();requestAnimationFrame(frame);
+ if(game.status==='playing'||renderedStatus!==game.status||renderedReduced!==reduced.matches){
+  render(ctx,game,reduced.matches);renderedStatus=game.status;renderedReduced=reduced.matches;
+ }
+ sync();requestAnimationFrame(frame);
 }sync();requestAnimationFrame(frame);
