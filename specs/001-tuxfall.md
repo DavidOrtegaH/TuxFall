@@ -80,6 +80,10 @@ Fuentes de R23: límite de cookies de Chrome (https://developer.chrome.com/blog/
 - R53: David Ortega Hoyas aprueba expresamente la versión 1.0.0 el 13 de noviembre de 2026. Actualizar versión, documentación y etiqueta v1.0.0 sobre release tras verificarla; promover a main sin alterar aspecto ni reglas.
 - R54: publicar automáticamente los cambios integrados en release, además de permitir despliegue manual; mantener las demás ramas y PR sin permisos de publicación. Identificar el artefacto mediante version.json y meta application-version, y comprobar la versión servida tras desplegar. No afirmar resuelto un fallo de acceso sin reproducirlo o contrastar sus síntomas.
 
+## Revisión v16 · cookies sin alargar el menú (1.1.0)
+- R55: el aviso inicial de cookies se presenta en diálogo modal fuera del flujo del menú. No añadir altura ni barra vertical a la ventana del juego por el aviso. Conservar texto, opciones Aceptar/Rechazar equivalentes y enlace legal. «Más tarde» o Escape cierran sin consentimiento ni guardado del récord. Configurar cookies mantiene su diálogo legible y desplazable. No ocultar barras para impedir leer contenido ni alterar controles, reglas o preferencias existentes.
+- R56: el diálogo inicial se muestra solo cuando falta una decisión vigente. Mientras esté abierto, los atajos no inician ni mueven el juego. Tras aceptar/rechazar/cerrar, devolver el foco a Jugar. Versión 1.1.0 posterior a la etiqueta 1.0.0, con pruebas y publicación desde release.
+
 ## Distribución y mantenimiento
 - R14: proyecto personal de David Ortega Hoyas, con código público bajo PolyForm Noncommercial 1.0.0 y Required Notice de autoría, preservando derechos de terceros. No se aceptan contribuciones externas. No anunciar como open source OSI.
 - R15: `main` principal; `features` desarrollo; `develop` integración; `release` estabilización/publicación. Versión en desarrollo 0.1.0, sin etiqueta 1.0 hasta terminarla. CI en todas las ramas; despliegue manual desde `release`.
