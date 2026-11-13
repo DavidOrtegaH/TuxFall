@@ -1,0 +1,64 @@
+import {createGame,move,step,currentSpeed,stageAt} from './model.js';
+import {render} from './render.js';
+import {createPersistence} from './persistence.js';
+const $=id=>document.getElementById(id),ctx=$('game').getContext('2d');
+const storage=createPersistence(document,location);
+try{localStorage.removeItem('tuxfall-best');}catch{}
+let game=createGame(),best=storage.readBest(),last=0,recordAtStart=best,recordBeaten=false,noticeUntil=0;
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+const boostKeys=new Set();let touchBoost=false;
+const playIcon='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 6 27 16 11 26Z" fill="currentColor"/></svg>';
+const retryIcon='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 12a11 11 0 1 0 1 9M26 4v8h-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"/></svg>';
+let previousStatus;
+function announce(text){$('announcement').textContent=text;}
+function clearBoost(){boostKeys.clear();touchBoost=false;game.boost=false;}
+function updateBoost(){game.boost=game.status==='playing'&&(touchBoost||boostKeys.size>0);}
+function sync(){
+ const paused=game.status==='paused',over=game.status==='over';
+ $('score').textContent=String(game.score).padStart(5,'0');$('best').textContent=String(best).padStart(5,'0');
+ $('state').textContent=['PARACAÍDAS ENTERO','PARACAÍDAS RASGADO','CAÍDA LIBRE'][stageAt(game.time)];
+ $('speed').textContent=`${Math.round(currentSpeed(game))} PX/S${game.boost?' ↓':''}`;
+ $('boost').classList.toggle('active',game.boost);
+ $('record-notice').hidden=!(game.status==='playing'&&game.time<noticeUntil);
+ if(previousStatus===game.status)return;
+ previousStatus=game.status;
+ $('pause').disabled=game.status==='ready'||over;
+ $('pause').textContent=paused?'▷':'Ⅱ';$('pause').setAttribute('aria-label',paused?'Reanudar partida':'Pausar partida');
+ $('overlay').hidden=game.status==='playing';
+ $('overlay-label').textContent=over?(recordBeaten?'NUEVO RÉCORD':'FIN DEL VUELO'):paused?'PAUSA':'LISTO PARA EL SALTO';
+ $('overlay-title').textContent=over?String(game.score).padStart(5,'0'):'';$('overlay-title').hidden=!over;
+ $('overlay-text').textContent=over?`PUNTOS · MEJOR ${best}`:'';$('overlay-text').hidden=!over;
+ $('start').innerHTML=over?retryIcon:playIcon;
+ $('start').setAttribute('aria-label',over?'Reintentar partida':paused?'Reanudar partida':'Iniciar partida');
+ $('start').title=$('start').getAttribute('aria-label');
+}
+function start(){if(game.status==='paused')game.status='playing';else{game=createGame();game.status='playing';recordAtStart=best;recordBeaten=false;noticeUntil=0;}clearBoost();last=performance.now();sync();announce('Partida en marcha.');$('start').blur();}
+function pause(){clearBoost();if(game.status==='playing'){game.status='paused';announce('Partida pausada.');}else if(game.status==='paused'){game.status='playing';last=performance.now();}sync();}
+$('start').addEventListener('click',start);$('pause').addEventListener('click',pause);
+$('left').addEventListener('click',()=>move(game,-1));$('right').addEventListener('click',()=>move(game,1));
+$('boost').addEventListener('pointerdown',e=>{if(game.status!=='playing')return;e.preventDefault();$('boost').setPointerCapture(e.pointerId);touchBoost=true;updateBoost();});
+for(const event of ['pointerup','pointercancel','lostpointercapture'])$('boost').addEventListener(event,()=>{touchBoost=false;updateBoost();});
+window.addEventListener('keydown',e=>{
+ const key=e.key.toLowerCase();if($('cookie-settings').open)return;
+ if(!['arrowleft','arrowright','arrowdown','a','d','s',' ','p','escape'].includes(key))return;
+ if(e.target instanceof HTMLButtonElement&&key===' ')return;
+ e.preventDefault();if(e.repeat)return;
+ if(key==='arrowdown'||key==='s'){boostKeys.add(key);updateBoost();}
+ if(key==='arrowleft'||key==='a')move(game,-1);if(key==='arrowright'||key==='d')move(game,1);
+ if(key==='p'||key==='escape')pause();
+ if(key===' '){if(game.status!=='playing')start();else pause();}
+});
+window.addEventListener('keyup',e=>{boostKeys.delete(e.key.toLowerCase());updateBoost();});
+function loseFocus(){clearBoost();if(game.status==='playing')pause();}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)loseFocus();});window.addEventListener('blur',loseFocus);
+function chooseCookies(allowed){storage.choose(allowed);const saved=allowed&&storage.saveBest(best);$('cookie-banner').hidden=true;$('cookie-settings').close();announce(allowed?(saved?'Guardado del récord activado.':'El navegador no permite guardar el récord. Se conservará durante esta visita.'):'Guardado desactivado. Cookie del récord eliminada; puedes seguir jugando.');}
+for(const button of document.querySelectorAll('[data-cookies]'))button.addEventListener('click',()=>chooseCookies(button.dataset.cookies==='yes'));
+$('cookie-banner').hidden=!!storage.consent;
+$('cookie-open').addEventListener('click',()=>{loseFocus();$('cookie-choice').textContent=storage.consent?.choice==='yes'?'Guardado del récord activado.':'Guardado del récord desactivado.';$('cookie-settings').showModal();});
+$('cookie-close').addEventListener('click',()=>$('cookie-settings').close());
+window.addEventListener('pagehide',()=>storage.saveBest(best));
+function frame(now){const before=game.status;step(game,(now-last)/1000);last=now;
+ if(game.score>best){best=game.score;if(!recordBeaten&&recordAtStart>0){recordBeaten=true;noticeUntil=game.time+4;announce(`¡Nuevo récord! Has superado ${recordAtStart} puntos.`);}}
+ if(before==='playing'&&game.status==='over'){clearBoost();storage.saveBest(best);announce(`${recordBeaten?'¡Nuevo récord! ':''}Fin de partida. ${game.score} puntos.`);}
+ render(ctx,game,reduced.matches);sync();requestAnimationFrame(frame);
+}sync();requestAnimationFrame(frame);
