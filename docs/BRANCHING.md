@@ -11,8 +11,8 @@ Flujo: `features` → `develop` → `release` → `main`. Después de estabiliza
 
 Todos los commits, incluidos los merges, siguen Conventional Commits en inglés: `feat: ...`, `fix: ...`, `docs: ...`, `chore: ...`. También se escriben en inglés los cuerpos de commit. La documentación y la interfaz pueden estar en español.
 
-La versión pública inicial autorizada el 13 de noviembre de 2026 es `0.1.0`. No hay etiqueta `v1.0.0`; 1.0 exige finalización y aprobación expresa. El despliegue de Pages se ejecuta desde `release` manualmente, para no publicar desarrollo automáticamente.
+La versión estable **1.0.0** está aprobada expresamente por David Ortega Hoyas el 13 de noviembre de 2026. La etiqueta `v1.0.0` identifica la versión verificada en `release` y promovida a `main`.
 
-La publicación de esta versión está autorizada en la tarea de auditoría y despliegue. Tras verificar `features`, se integra en `develop`, se promociona a `release` y después a `main`. Las cuatro ramas reciben la documentación de publicación; se deja el checkout en `features`.
+Flujo autorizado: `features` → `develop` → `release` → `main`. Pages publica automáticamente cada push de `release`; también puede ejecutarse manualmente desde esa rama. El entorno `github-pages` permite únicamente `release`. Las otras ramas y los PRs solo ejecutan pruebas/build. Se deja el checkout en `features`.
 
 CI ejecuta pruebas y build en las cuatro ramas. El repositorio oficial no acepta aportaciones externas; ver CONTRIBUTING.md. Las protecciones remotas, cuando estén disponibles, deben impedir borrados y force-push de `main`/`release`, limitar escrituras al propietario y mantener `main` como rama predeterminada. Estos ajustes no se activan por añadir este documento.
