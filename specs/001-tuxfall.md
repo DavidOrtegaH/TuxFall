@@ -59,6 +59,10 @@ Fuentes de R23: límite de cookies de Chrome (https://developer.chrome.com/blog/
 - R42: silencio por defecto. Guardar solo la elección expresa en la cookie funcional propia `tuxfall_sound` (`on`/`off`), hasta 400 días renovables, independiente del permiso del récord. Si las cookies están bloqueadas, mantener la elección durante la visita. Documentarla en ambos idiomas y en Configurar cookies.
 - R43: cambio de carril con tono breve deslizante audible; cada 1000 puntos con campanilla ascendente diferenciada. Audio iniciado por gesto al activarlo o iniciar partida con preferencia activa; confirmación sonora al activarlo. Mantener cancelación al pausar/silenciar y no repetir hitos.
 
+## Revisión v11 · foco y hitos de puntuación
+- R44: durante la partida, capturar flechas antes de la navegación de interfaz, cancelar su acción predeterminada y devolver el foco al canvas al usarlas. No desplazar selección a botones, ni activar el altavoz mediante controles de juego. Mantener Tab y foco visible para navegar por los controles, y no interceptar el diálogo de cookies.
+- R45: aviso sonoro una sola vez por múltiplo de 500 puntos (500, 1000, 1500…), sustituyendo el intervalo anterior de 1000. No repetir al pausar/reanudar; reiniciar los hitos con cada partida.
+
 ## Distribución y mantenimiento
 - R14: proyecto personal de David Ortega Hoyas, con código público bajo PolyForm Noncommercial 1.0.0 y Required Notice de autoría, preservando derechos de terceros. No se aceptan contribuciones externas. No anunciar como open source OSI.
 - R15: `main` principal; `features` desarrollo; `develop` integración; `release` estabilización/publicación. Versión en desarrollo 0.1.0, sin etiqueta 1.0 hasta terminarla. CI en todas las ramas; despliegue manual desde `release`.

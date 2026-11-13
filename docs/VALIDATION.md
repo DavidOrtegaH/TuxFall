@@ -77,3 +77,10 @@ Fecha: 13 de noviembre de 2026. Esto no declara una versión estable ni sustituy
 - 36 pruebas correctas, incluidos silencio inicial, cookies on/off, recarga, cookies bloqueadas, cancelación y umbrales. Medición en Web Audio real tras gesto: pico 0.173 para carril y 0.185 para hito, contexto running. Esto verifica generación de señal; no permite confirmar el volumen físico de los altavoces del usuario.
 - Navegador: verificados estado inicial silenciado y persistencia de activación y silencio tras recarga. Prueba de récord aislada sin modificar el récord real.
 - Cookie funcional de personalización solicitada expresamente, sin publicidad ni perfiles; criterio consultado en https://www.aepd.es/guias/guia-cookies.pdf.
+
+## Revisión v11: flechas de juego y aviso cada 500 puntos
+
+- Flechas capturadas durante la partida antes de la navegación de interfaz, cancelando su acción predeterminada y enfocando el canvas sin scroll. Se mantiene Tab y el foco visible de los botones; el diálogo de cookies queda excluido.
+- Navegador: con foco en altavoz, ArrowLeft pasa el foco a game sin cambiar aria-pressed del sonido. ArrowRight y pausa funcionan desde el canvas. Tab en pausa alcanza Reanudar partida.
+- Aviso sonoro cada 500 puntos. Pruebas de 499→500, puntuación inmóvil en 500, 1499→1500 y cruce de varios umbrales sin repeticiones.
+- 36 pruebas, comprobación sintáctica y build correctos.

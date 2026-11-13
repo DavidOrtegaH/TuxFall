@@ -8,8 +8,11 @@ test('R37/R38: record crossing is strict and once per run; milestones do not rep
  assert.deepEqual(scoreFeedback(1000,1001,999,true),{newRecord:false,milestones:[]});
  assert.equal(scoreFeedback(998,999,999,false).newRecord,false);
  assert.equal(scoreFeedback(0,1,0,false).newRecord,false);
- assert.deepEqual(scoreFeedback(999,3001,4000,false).milestones,[1000,2000,3000]);
+ assert.deepEqual(scoreFeedback(999,3001,4000,false).milestones,[1000,1500,2000,2500,3000]);
  assert.deepEqual(scoreFeedback(3001,3001,4000,false).milestones,[]);
+ assert.deepEqual(scoreFeedback(499,500,900,false).milestones,[500]);
+ assert.deepEqual(scoreFeedback(500,500,900,false).milestones,[]);
+ assert.deepEqual(scoreFeedback(1499,1500,2000,false).milestones,[1500]);
 });
 function fakeAudio(){
  const instances=[];
