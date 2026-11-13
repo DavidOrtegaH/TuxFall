@@ -176,3 +176,6 @@ dialog { font-size: 16px; }
 .sound-toggle:hover { --speaker-paper: #d6d8cc; }
 .record-heading { display: flex; align-items: center; justify-content: center; gap: 10px; }
 .record-tux svg { display: block; width: 24px; height: 32px; image-rendering: pixelated; }
+
+/* The canvas receives gameplay focus; menu controls keep their visible focus ring. */
+#game:focus { outline: none; }
