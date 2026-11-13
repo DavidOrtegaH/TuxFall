@@ -4,7 +4,9 @@ Juego web monocromo de caída libre con Tux. Tres carriles, pájaros, aviones, p
 
 La interfaz contiene solo el juego: marco centrado en PC y viewport completo en móvil/tablet. Los menús legibles incluyen logo pixelado, Play/reintento, récord, guía según teclado o entrada táctil y banderas monocromas de España / Reino Unido justo debajo de los controles para elegir idioma. Al terminar, la puntuación de la partida aparece debajo del récord. Cookies, licencia y créditos están disponibles dentro del menú y la pausa.
 
-Repositorio oficial: https://github.com/DavidOrtegaH/TuxFall. `main` es la rama principal y contiene por ahora la base legal y las normas. El prototipo `0.1.0` está en [`features`](https://github.com/DavidOrtegaH/TuxFall/tree/features) y su integración en [`develop`](https://github.com/DavidOrtegaH/TuxFall/tree/develop). Para ejecutarlo, usar una de esas ramas. `release` queda preparada para estabilizar versiones; todavía no hay una entrega 1.0 ni despliegue público del juego.
+Repositorio oficial: https://github.com/DavidOrtegaH/TuxFall. **Jugar en Internet: https://davidortegah.github.io/TuxFall/**. El enlace del repositorio muestra el código; el enlace de GitHub Pages abre el juego.
+
+Versión estable **1.0.0**, aprobada por David Ortega Hoyas. `main` es la principal; `features` desarrolla, `develop` integra y `release` publica.
 
 ## Ejecutar
 Requiere Node.js 22 o superior. No necesita instalar paquetes.
@@ -30,9 +32,9 @@ JavaScript ES modules, Canvas 2D y CSS; herramientas y pruebas nativas de Node. 
 La fuente de comportamiento es [specs/001-tuxfall.md](https://github.com/DavidOrtegaH/TuxFall/blob/develop/specs/001-tuxfall.md). Flujo: actualizar requisitos y criterios → modificar modelo → verificar pruebas → renderizado y comprobación visual. Las pruebas citan los identificadores de requisito. No se requiere plataforma de SpecDD externa.
 
 ## GitHub Pages
-El workflow prueba y construye en las cuatro ramas y en PRs. Despliega `dist` exclusivamente mediante ejecución manual desde `release`; Pages usa GitHub Actions como origen. Las acciones están fijadas a commits oficiales y el token de publicación queda limitado al job de despliegue.
+El workflow prueba y construye las cuatro ramas y los PRs. Publica automáticamente los pushes de `release`, y también admite ejecución manual desde esa rama. `features`, `develop`, `main` y los PRs no despliegan directamente. Pages usa GitHub Actions como origen; el entorno solo admite `release`.
 
-URL pública: https://davidortegah.github.io/TuxFall/. Recursos relativos y sitemap en la subruta. Para revisar el artefacto local: `npm run build` y `node scripts/serve.mjs --root dist --base /TuxFall/ --port 5174`.
+URL pública: https://davidortegah.github.io/TuxFall/. La versión publicada puede comprobarse en https://davidortegah.github.io/TuxFall/version.json. Recursos relativos y sitemap en la subruta. Para revisar el artefacto local: `npm run build` y `node scripts/serve.mjs --root dist --base /TuxFall/ --port 5174`.
 
 La auditoría y sus límites están en [docs/AUDIT-2026-11-13.md](docs/AUDIT-2026-11-13.md). No se garantiza la indexación en buscadores. La imagen de enlaces compartidos se genera a partir del logo y sprites existentes, sin modificar el juego.
 
@@ -46,7 +48,7 @@ Copyright © 2026 David Ortega Hoyas sobre sus aportaciones originales. [PolyFor
 
 El código es público y consultable, pero esta licencia no es «open source» según la [definición OSI](https://opensource.org/osd), que exige permitir también uso comercial. No se concede exclusividad sobre la idea del juego ni sobre Tux. La licencia obliga a preservar atribución, pero no puede impedir técnicamente que alguien incumpla o cree un fork.
 
-No se aceptan contribuciones externas: [CONTRIBUTING.md](CONTRIBUTING.md). Solo el propietario integra cambios. Flujo `features` → `develop` → `release` → `main`: [convenciones de Git](docs/BRANCHING.md). Versión publicada `0.1.0`; 1.0 requiere finalización y aprobación expresa.
+No se aceptan contribuciones externas: [CONTRIBUTING.md](CONTRIBUTING.md). Solo el propietario integra cambios. Flujo `features` → `develop` → `release` → `main`: [convenciones de Git](docs/BRANCHING.md). Versión estable `1.0.0`, aprobada por el propietario.
 
 El sonido sintetizado acompaña los cambios de carril, los nuevos récords y cada 500 puntos. Silenciado por defecto, el botón de altavoz junto a pausa recuerda tu elección expresa con la cookie funcional tuxfall_sound (hasta 400 días renovables), independiente del permiso del récord. Al superar una marca previa, el menú final muestra un Tux a cada lado de NUEVO RÉCORD.
  Al alcanzar cada 500 puntos o superar un récord previo positivo, el marcador se detiene visualmente y parpadea durante 1.2 segundos mientras la cuenta real continúa. Con movimiento reducido se omite el parpadeo.

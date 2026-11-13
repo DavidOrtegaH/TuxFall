@@ -76,6 +76,10 @@ Fuentes de R23: límite de cookies de Chrome (https://developer.chrome.com/blog/
 - R51: corregir accesibilidad de nombres del marcador, teclado en enlaces y foco al ocultar menús, sin quitar el foco de los controles operables. Mensaje bilingüe sin JavaScript y descripción accesible breve del juego sin cambiar la interfaz con JavaScript.
 - R52: comprobar build real en subruta /TuxFall/, enlaces/recursos, teclado, viewport estrecho, contraste, privacidad y consola. CI con permisos mínimos, acciones fijadas y despliegue manual desde release. Publicación autorizada de 0.1.0 sin etiqueta 1.0, siguiendo features → develop → release → main.
 
+## Revisión v15 · versión estable aprobada
+- R53: David Ortega Hoyas aprueba expresamente la versión 1.0.0 el 13 de noviembre de 2026. Actualizar versión, documentación y etiqueta v1.0.0 sobre release tras verificarla; promover a main sin alterar aspecto ni reglas.
+- R54: publicar automáticamente los cambios integrados en release, además de permitir despliegue manual; mantener las demás ramas y PR sin permisos de publicación. Identificar el artefacto mediante version.json y meta application-version, y comprobar la versión servida tras desplegar. No afirmar resuelto un fallo de acceso sin reproducirlo o contrastar sus síntomas.
+
 ## Distribución y mantenimiento
 - R14: proyecto personal de David Ortega Hoyas, con código público bajo PolyForm Noncommercial 1.0.0 y Required Notice de autoría, preservando derechos de terceros. No se aceptan contribuciones externas. No anunciar como open source OSI.
 - R15: `main` principal; `features` desarrollo; `develop` integración; `release` estabilización/publicación. Versión en desarrollo 0.1.0, sin etiqueta 1.0 hasta terminarla. CI en todas las ramas; despliegue manual desde `release`.

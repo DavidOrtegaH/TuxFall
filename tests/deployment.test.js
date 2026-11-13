@@ -13,8 +13,11 @@ test('R49/R50/R52: clean deployment artifact, CSP hashes and all subpath resourc
  const server=createStaticServer({root:'dist',base:'/TuxFall/'});
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));t.after(()=>new Promise(resolve=>server.close(resolve)));
  const origin=`http://127.0.0.1:${server.address().port}`;
+ const {version}=JSON.parse(await readFile('package.json','utf8'));
+ assert.equal((await (await fetch(origin+'/TuxFall/version.json')).json()).version,version);
  for(const file of ['index.html','about.html','cookies.html']){
   const url=base+(file==='index.html'?'':file),response=await fetch(origin+'/TuxFall/'+file),html=await response.text();
+  assert.ok(html.includes(`<meta name="application-version" content="${version}">`));
   assert.equal(response.status,200);assert.match(html,new RegExp(`<link rel="canonical" href="${url.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}">`));
   assert.match(html,/connect-src 'none'/);assert.match(html,/object-src 'none'/);assert.match(html,/<meta name="referrer" content="no-referrer">/);
   assert.doesNotMatch(html,/<style>|\son\w+=|javascript:/i);
