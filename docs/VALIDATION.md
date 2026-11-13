@@ -44,3 +44,10 @@ Fecha: 13 de noviembre de 2026. Esto no declara una versión estable ni sustituy
 - Selector compartido con banderas SVG monocromas de España y Reino Unido, sin emojis. En el menú de juego aparece debajo de la guía y antes de los enlaces, reutilizando la visibilidad de inicio/pausa/fin.
 - Navegador: posición debajo de los controles confirmada por geometría; botones de 50 px de alto. Selección identificada mediante borde, subrayado y `aria-pressed`. Cambio a inglés, persistencia tras recargar y vuelta a español con Espacio comprobados; récord conservado y consola sin errores.
 - Las 30 pruebas existentes pasan y el build se genera correctamente. No cambian las reglas del juego ni el formato de la preferencia persistente.
+
+## Revisión v7: etiquetas y explicación de renovación
+
+- Menú inicial muestra «Jugar»; pausa «Pausa» y fin «Reintentar», con equivalentes ingleses. Medido en navegador: 36 px entre logo y etiqueta, 8 px entre etiqueta y botón. Aviso de récord separado de la etiqueta del botón.
+- Un único enlace «Créditos y Licencia». Retirados los párrafos solicitados de créditos y privacidad en ambos idiomas; se conservan atribución de Tux, LICENSE y NOTICE originales.
+- «Configurar cookies» distingue la fecha móvil de la cookie (hasta 400 días desde la visita/guardado), el permiso de 720 días no renovado automáticamente y la copia local sin caducidad de aplicación. Informa de nuevo permiso para continuar y posible borrado anticipado; no promete conservación perpetua. Idioma explicado como preferencia independiente.
+- Persistencia sin cambios de código ni pérdida del récord. Se mantienen las pruebas de renovación, caducidad, reaceptación y recuperación.

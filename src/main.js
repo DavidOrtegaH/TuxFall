@@ -42,8 +42,9 @@ function sync(){
  $('pause').disabled=game.status==='ready'||over;
  $('pause').textContent=paused?'▷':'Ⅱ';$('pause').setAttribute('aria-label',t(paused?'resumeGame':'pauseGame'));
  $('overlay').hidden=game.status==='playing';
- $('overlay-label').textContent=t(over?(recordBeaten?'newRecord':'endLabel'):'paused');
- $('overlay-label').hidden=game.status==='ready';
+ $('overlay-label').textContent=t(over?'endLabel':paused?'paused':'playAction');
+ $('overlay-label').hidden=game.status==='playing';
+ $('menu-record-notice').hidden=!over||!recordBeaten;
  $('menu-score-row').hidden=!over;
  $('start').innerHTML=over?retryIcon:playIcon;
  $('start').setAttribute('aria-label',t(over?'retryGame':paused?'resumeGame':'startGame'));
