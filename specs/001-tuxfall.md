@@ -70,6 +70,12 @@ Fuentes de R23: límite de cookies de Chrome (https://developer.chrome.com/blog/
 ## Revisión v13 · récord del HUD
 - R48: al superar por primera vez el récord previo positivo, también fijar y parpadear el número de RÉCORD del HUD durante 1.2 segundos y tres ciclos de 400 ms, sincronizado con el efecto de PUNTOS. Mantener el cartel de nuevo récord. El récord real sigue actualizándose y guardándose; al finalizar el efecto se muestra su valor actual. Los hitos de 500 por sí solos no activan este efecto en RÉCORD. Pausa/fin lo descartan; movimiento reducido omite el parpadeo.
 
+## Revisión v14 · auditoría y publicación
+- R49: conservar estética, idiomas, controles y reglas. Añadir metadatos canónicos, descripción/social, datos estructurados veraces y sitemap para https://davidortegah.github.io/TuxFall/. No inventar reseñas ni garantizar indexación. No duplicar URLs por idioma sin páginas separadas.
+- R50: CSP compatible con Canvas y Web Audio, sin scripts inline ejecutables, objetos, conexiones ni formularios externos; política de referrer. Publicar solo archivos necesarios, limpiar artefactos obsoletos y excluir pruebas, configuración y archivos ocultos. Documentar límites de cabeceras en Pages.
+- R51: corregir accesibilidad de nombres del marcador, teclado en enlaces y foco al ocultar menús, sin quitar el foco de los controles operables. Mensaje bilingüe sin JavaScript y descripción accesible breve del juego sin cambiar la interfaz con JavaScript.
+- R52: comprobar build real en subruta /TuxFall/, enlaces/recursos, teclado, viewport estrecho, contraste, privacidad y consola. CI con permisos mínimos, acciones fijadas y despliegue manual desde release. Publicación autorizada de 0.1.0 sin etiqueta 1.0, siguiendo features → develop → release → main.
+
 ## Distribución y mantenimiento
 - R14: proyecto personal de David Ortega Hoyas, con código público bajo PolyForm Noncommercial 1.0.0 y Required Notice de autoría, preservando derechos de terceros. No se aceptan contribuciones externas. No anunciar como open source OSI.
 - R15: `main` principal; `features` desarrollo; `develop` integración; `release` estabilización/publicación. Versión en desarrollo 0.1.0, sin etiqueta 1.0 hasta terminarla. CI en todas las ramas; despliegue manual desde `release`.

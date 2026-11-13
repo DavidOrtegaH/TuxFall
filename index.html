@@ -2,6 +2,10 @@
 <html lang="es" translate="no" class="notranslate">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-LTNNzkfplsqdYEYoSo1YOBqlr034BePbas5EVYPgsQg='; style-src 'self'; style-src-attr 'unsafe-inline'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; worker-src 'none'; media-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <link rel="canonical" href="https://davidortegah.github.io/TuxFall/">
+  <meta name="author" content="David Ortega Hoyas">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#eeeee7">
   <meta data-i18n-content="description" name="description" content="TuxFall: un juego pixelado de caída libre. Tres carriles, un pingüino y un paracaídas con los segundos contados.">
@@ -10,17 +14,34 @@
   <meta name="googlebot" content="notranslate">
   <link rel="icon" type="image/svg+xml" href="./src/favicon.svg">
   <link rel="stylesheet" href="./src/style.css">
+  <meta property="og:image" content="https://davidortegah.github.io/TuxFall/src/social.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TuxFall: Tux en paracaídas, en pixel art monocromo.">
+  <meta name="twitter:image" content="https://davidortegah.github.io/TuxFall/src/social.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TuxFall">
+  <meta property="og:title" content="TuxFall">
+  <meta property="og:description" data-i18n-content="description" content="Un juego pixelado de caída libre con Tux. Tres carriles, pájaros, aviones y ciclo día/noche.">
+  <meta property="og:url" content="https://davidortegah.github.io/TuxFall/">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TuxFall">
+  <meta name="twitter:description" data-i18n-content="description" content="Juego de caída libre con Tux y estética pixelada monocroma.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":["VideoGame","WebApplication"],"name":"TuxFall","url":"https://davidortegah.github.io/TuxFall/","description":"Juego de caída libre con Tux, tres carriles, obstáculos y estética pixelada monocroma.","applicationCategory":"GameApplication","operatingSystem":"Any","gamePlatform":"Web browser","inLanguage":["es","en"],"isAccessibleForFree":true,"author":{"@type":"Person","name":"David Ortega Hoyas"},"license":"https://davidortegah.github.io/TuxFall/LICENSE"}</script>
 </head>
 <body class="game-page">
+  <noscript><p class="no-script">Activa JavaScript para jugar a TuxFall. / Enable JavaScript to play TuxFall. <a href="./about.html">Créditos y Licencia / Credits and License</a></p></noscript>
   <main class="arcade" id="arcade" data-status="ready" data-input="keyboard" aria-label="Juego TuxFall" data-i18n-aria="gameLabel">
+    <p class="sr-only" data-i18n="description">TuxFall: un juego pixelado de caída libre. Tres carriles, un pingüino y un paracaídas con los segundos contados.</p>
     <header class="hud" data-i18n-aria="scoreboard" aria-label="Marcador">
       <div class="hud-controls">
       <button id="pause" class="pause" aria-label="Pausar partida" disabled data-i18n-aria="pauseGame"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M8 7h5v18H8zm11 0h5v18h-5z" fill="currentColor"/></svg></button>
       <button id="sound" class="sound-toggle" type="button" aria-label="Activar sonido" data-i18n-aria="unmuteSound" aria-pressed="true"></button>
       </div>
       <div class="hud-scores">
-        <div><small data-i18n="points">PUNTOS</small><output id="score" aria-live="off">00000</output></div>
-        <div><small data-i18n="best">RÉCORD</small><output id="best" aria-live="off">00000</output></div>
+        <div><small id="score-label" data-i18n="points">PUNTOS</small><output id="score" aria-labelledby="score-label" aria-live="off">00000</output></div>
+        <div><small id="best-label" data-i18n="best">RÉCORD</small><output id="best" aria-labelledby="best-label" aria-live="off">00000</output></div>
       </div>
       <span id="record-notice" data-i18n="newRecord" hidden>¡NUEVO RÉCORD!</span>
     </header>
