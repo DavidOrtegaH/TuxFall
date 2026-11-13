@@ -98,3 +98,10 @@ Fecha: 13 de noviembre de 2026. Esto no declara una versión estable ni sustituy
 - Se reutilizan cancelación en pausa/fin y opción de movimiento reducido; récord real y guardado continúan actualizándose.
 - 40 pruebas, comprobación sintáctica y build correctos, incluida sincronización e independencia de ambos marcadores.
 - Navegador con récord aislado 499: verificados congelación, fase de parpadeo, cartel visible y recuperación de la cifra real (cuatro comprobaciones positivas). Récord real del usuario conservado; fixtures retiradas.
+
+## Revisión 1.1.0: cookies fuera de la ventana de juego
+
+Aviso inicial en diálogo modal fuera de main/overlay, conservando los textos y opciones equivalentes. Más tarde y Escape no conceden consentimiento. Los atajos no pasan al juego; al cerrar el foco vuelve a Jugar. El diálogo de Configurar cookies mantiene su desplazamiento por legibilidad.
+
+42 pruebas y build correctos. Navegador local: overlay con clientHeight = scrollHeight = 676 px mientras el aviso está abierto, sin contenido de cookies en su flujo. Cierre sin decidir devuelve foco a start y vuelve a preguntar al recargar. Rechazo persiste y evita repetir aviso al recargar. La versión 1.0.0 anterior se verificó públicamente mediante version.json con revisión 75ec227765f8c2b682ab0ed1509aca65f094bf37.
+Viewport 320×568: overlay de 320×568, scrollWidth 320 y scrollHeight 568; sin desbordamiento horizontal ni vertical en el menú inicial.

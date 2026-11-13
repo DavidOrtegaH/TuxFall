@@ -81,11 +81,7 @@
             <a href="./about.html" target="_blank" rel="noopener" data-i18n="creditsLicense">Créditos y Licencia</a>
             <small>© 2026 David Ortega Hoyas</small>
           </footer>
-          <section class="cookie-banner" id="cookie-banner" aria-label="Preferencias de cookies" data-i18n-aria="cookieQuestion">
-            <strong data-i18n="cookieQuestion">¿Guardamos tu récord?</strong>
-            <p><span data-i18n="cookieSummary">Récord local sin caducidad del juego y cookie de respaldo renovable. Puedes jugar sin aceptar.</span> <a href="./cookies.html" target="_blank" rel="noopener" data-i18n="cookiePolicy">Política de cookies</a>.</p>
-            <div class="cookie-actions"><button data-cookies="yes" data-i18n="accept">Aceptar</button><button data-cookies="no" data-i18n="reject">Rechazar</button></div>
-          </section>
+
         </div>
       </section>
     </div>
@@ -97,6 +93,13 @@
     </nav>
     <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
   </main>
+
+  <dialog class="cookie-banner" id="cookie-banner" aria-label="Preferencias de cookies" data-i18n-aria="cookieQuestion">
+            <h2 data-i18n="cookieQuestion">¿Guardamos tu récord?</h2>
+            <p><span data-i18n="cookieSummary">Récord local sin caducidad del juego y cookie de respaldo renovable. Puedes jugar sin aceptar.</span> <a href="./cookies.html" target="_blank" rel="noopener" data-i18n="cookiePolicy">Política de cookies</a>.</p>
+            <div class="cookie-actions"><button data-cookies="yes" data-i18n="accept">Aceptar</button><button data-cookies="no" data-i18n="reject">Rechazar</button></div>
+            <button id="cookie-later" data-i18n="later" type="button">Más tarde</button>
+  </dialog>
 
   <dialog id="cookie-settings" aria-labelledby="cookie-heading">
     <h2 id="cookie-heading" data-i18n="cookieDialogTitle">Tu récord, tú decides.</h2>
