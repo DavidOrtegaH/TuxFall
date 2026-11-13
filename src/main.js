@@ -6,6 +6,7 @@ import {playIcon,pauseIcon,retryIcon,soundIcon,mutedIcon} from './icons.js';
 import {createSoundEngine} from './sound.js';
 import {createSoundPreference} from './sound-preference.js';
 import {scoreFeedback} from './feedback.js';
+import {createScoreDisplay} from './score-display.js';
 import {tuxExclamation} from './celebration.js';
 const $=id=>document.getElementById(id),ctx=$('game').getContext('2d');
 let deviceStorage=null;
@@ -15,6 +16,7 @@ const t=(key,values)=>i18n.t(key,values);
 const storage=createPersistence(document,location,()=>Date.now(),deviceStorage);
 const soundPreference=createSoundPreference(document,location);
 const sound=createSoundEngine({initialEnabled:soundPreference.value});
+const scoreDisplay=createScoreDisplay();
 $('record-tux-left').innerHTML=tuxExclamation;
 $('record-tux-right').innerHTML=tuxExclamation;
 try{localStorage.removeItem('tuxfall-best');}catch{}
@@ -45,7 +47,10 @@ function changeLane(direction){const before=game.lane;move(game,direction);if(ga
 function sync(){
  syncSound();
  const paused=game.status==='paused',over=game.status==='over';
- $('score').textContent=String(game.score).padStart(5,'0');$('best').textContent=String(best).padStart(5,'0');
+ const display=scoreDisplay.read(game.score,game.time,game.status,reduced.matches);
+ $('score').textContent=String(display.score).padStart(5,'0');
+ $('score').classList.toggle('score-blink-hidden',display.hidden);
+ $('best').textContent=String(best).padStart(5,'0');
  $('menu-best').textContent=String(best).padStart(5,'0');$('menu-score').textContent=String(game.score).padStart(5,'0');
  $('touch-controls').hidden=inputMode!=='touch'||!['playing','paused'].includes(game.status);
  const {bg}=paletteAt(game.time);$('arcade').style.setProperty('--sky',`rgb(${bg},${bg},${bg})`);
@@ -101,6 +106,7 @@ $('cookie-close').addEventListener('click',()=>$('cookie-settings').close());
 window.addEventListener('pagehide',()=>storage.saveBest(best));
 function frame(now){const before=game.status,previousScore=game.score;step(game,(now-last)/1000);last=now;
  const feedback=scoreFeedback(previousScore,game.score,recordAtStart,recordBeaten);
+ if(feedback.newRecord||feedback.milestones.length)scoreDisplay.trigger(feedback.milestones.at(-1)??game.score,game.time);
  if(game.score>best)best=game.score;
  if(feedback.newRecord){recordBeaten=true;noticeUntil=game.time+4;announce(t('recordAnnouncement',{best:recordAtStart}));void sound.play('record');}
  feedback.milestones.forEach((_,index)=>void sound.play('milestone',(feedback.newRecord ? .34 : 0)+index*.22));
