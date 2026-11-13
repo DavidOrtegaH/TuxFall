@@ -16,3 +16,5 @@ La versión 1.0.0 fue aprobada expresamente por David Ortega Hoyas. La versión 
 Flujo autorizado: `features` → `develop` → `release` → `main`. Pages publica automáticamente cada push de `release`; también puede ejecutarse manualmente desde esa rama. El entorno `github-pages` permite únicamente `release`. Las otras ramas y los PRs solo ejecutan pruebas/build. Se deja el checkout en `features`.
 
 CI ejecuta pruebas y build en las cuatro ramas. El repositorio oficial no acepta aportaciones externas; ver CONTRIBUTING.md. Las protecciones remotas, cuando estén disponibles, deben impedir borrados y force-push de `main`/`release`, limitar escrituras al propietario y mantener `main` como rama predeterminada. Estos ajustes no se activan por añadir este documento.
+
+La versión 1.1.1 corrige la mezcla de recursos en caché mediante nombres con huella de contenido. Las etiquetas anteriores no se reescriben.

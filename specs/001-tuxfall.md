@@ -84,6 +84,9 @@ Fuentes de R23: límite de cookies de Chrome (https://developer.chrome.com/blog/
 - R55: el aviso inicial de cookies se presenta en diálogo modal fuera del flujo del menú. No añadir altura ni barra vertical a la ventana del juego por el aviso. Conservar texto, opciones Aceptar/Rechazar equivalentes y enlace legal. «Más tarde» o Escape cierran sin consentimiento ni guardado del récord. Configurar cookies mantiene su diálogo legible y desplazable. No ocultar barras para impedir leer contenido ni alterar controles, reglas o preferencias existentes.
 - R56: el diálogo inicial se muestra solo cuando falta una decisión vigente. Mientras esté abierto, los atajos no inician ni mueven el juego. Tras aceptar/rechazar/cerrar, devolver el foco a Jugar. Versión 1.1.0 posterior a la etiqueta 1.0.0, con pruebas y publicación desde release.
 
+## Revisión v17 · coherencia de caché (1.1.1)
+- R57: tras reproducir en la web pública HTML 1.1.0 con un módulo i18n antiguo (Missing translation: es.later), generar recursos con nombres que incluyan una huella de contenido del build y reescribir tanto HTML como importaciones JS. Todos los módulos de un documento deben pertenecer al mismo build. Mantener versiones publicadas y etiquetas inmutables; corrección 1.1.1. Verificar dos builds con huellas distintas y sus enlaces, más recarga real en el navegador previamente afectado.
+
 ## Distribución y mantenimiento
 - R14: proyecto personal de David Ortega Hoyas, con código público bajo PolyForm Noncommercial 1.0.0 y Required Notice de autoría, preservando derechos de terceros. No se aceptan contribuciones externas. No anunciar como open source OSI.
 - R15: `main` principal; `features` desarrollo; `develop` integración; `release` estabilización/publicación. Versión en desarrollo 0.1.0, sin etiqueta 1.0 hasta terminarla. CI en todas las ramas; despliegue manual desde `release`.
