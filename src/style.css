@@ -159,3 +159,9 @@ dialog { font-size: 16px; }
 .language-flag[aria-pressed="true"]::after { content:''; position:absolute; bottom:3px; left:25px; width:14px; height:2px; background:currentColor; }
 .language-flag:hover { --flag-paper:#d6d8cc; }
 .page-language .language-picker { justify-content:flex-end; margin:0; }
+
+.menu-main .logo { margin-bottom: 36px; }
+.menu-main .overlay-label { margin: 0 0 8px; }
+.menu-stats .record-result { margin: 8px 0 0; font-size: 14px; letter-spacing: 0; font-weight: 700; }
+@media (max-height: 650px) { .menu-main .logo { margin-bottom: 26px; } }
+@media (max-height: 480px) { .menu-main .logo { margin-bottom: 24px; } }
