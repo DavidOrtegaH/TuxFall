@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile,mkdir,writeFile,access,readdir} from 'node:fs/promises';
+import {readFile,mkdir,writeFile,access,readdir,rm} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {createStaticServer} from '../scripts/serve.mjs';
@@ -14,7 +14,16 @@ test('R49/R50/R52: clean deployment artifact, CSP hashes and all subpath resourc
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));t.after(()=>new Promise(resolve=>server.close(resolve)));
  const origin=`http://127.0.0.1:${server.address().port}`;
  const {version}=JSON.parse(await readFile('package.json','utf8'));
- assert.equal((await (await fetch(origin+'/TuxFall/version.json')).json()).version,version);
+ const manifest=await (await fetch(origin+'/TuxFall/version.json')).json();
+ assert.equal(manifest.version,version);
+ for(const [original,path] of Object.entries(manifest.assets)){
+  assert.ok(path.includes('.'+manifest.fingerprint+'.'));
+  const response=await fetch(origin+'/TuxFall/'+path);assert.equal(response.status,200,path);
+  if(original.endsWith('.js'))for(const [,relative] of (await response.text()).matchAll(/['"]([^'"]+\.js)['"]/g)){
+   assert.ok(relative.includes('.'+manifest.fingerprint+'.'));
+   assert.equal((await fetch(new URL(relative,origin+'/TuxFall/'+path))).status,200,relative);
+  }
+ }
  for(const file of ['index.html','about.html','cookies.html']){
   const url=base+(file==='index.html'?'':file),response=await fetch(origin+'/TuxFall/'+file),html=await response.text();
   assert.ok(html.includes(`<meta name="application-version" content="${version}">`));
@@ -33,5 +42,19 @@ test('R49/R50/R52: clean deployment artifact, CSP hashes and all subpath resourc
  assert.equal((await fetch(origin+'/TuxFall/.git/config')).status,403);
  assert.equal((await fetch(origin+'/src/main.js')).status,404);
  assert.equal((await fetch(origin+'/TuxFall/',{method:'POST'})).status,405);
- assert.equal((await fetch(origin+'/TuxFall/src/main.js',{method:'HEAD'})).headers.get('content-type'),'text/javascript; charset=utf-8');
+ assert.equal((await fetch(origin+'/TuxFall/'+manifest.assets['src/main.js'],{method:'HEAD'})).headers.get('content-type'),'text/javascript; charset=utf-8');
+});
+
+test('R57: changed asset content invalidates all module URLs; removed probes do not persist',async()=>{
+ const first=JSON.parse(await readFile('dist/version.json','utf8'));
+ const probe='src/cache-qa-probe.js';
+ try{
+  await writeFile(probe,'export const cacheProbe=1;\n');
+  execFileSync(process.execPath,['scripts/build.mjs']);
+  const second=JSON.parse(await readFile('dist/version.json','utf8'));
+  assert.notEqual(first.fingerprint,second.fingerprint);
+  assert.notEqual(first.assets['src/main.js'],second.assets['src/main.js']);
+  assert.ok((await readFile('dist/index.html','utf8')).includes(second.assets['src/main.js']));
+ }finally{await rm(probe,{force:true});execFileSync(process.execPath,['scripts/build.mjs']);}
+ assert.equal(JSON.parse(await readFile('dist/version.json','utf8')).fingerprint,first.fingerprint);
 });

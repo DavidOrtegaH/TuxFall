@@ -6,7 +6,7 @@ La interfaz contiene solo el juego: marco centrado en PC y viewport completo en 
 
 Repositorio oficial: https://github.com/DavidOrtegaH/TuxFall. **Jugar en Internet: https://davidortegah.github.io/TuxFall/**. El enlace del repositorio muestra el código; el enlace de GitHub Pages abre el juego.
 
-Versión estable **1.1.0**, aprobada por David Ortega Hoyas. `main` es la principal; `features` desarrolla, `develop` integra y `release` publica.
+Versión estable **1.1.1**, aprobada por David Ortega Hoyas. `main` es la principal; `features` desarrolla, `develop` integra y `release` publica.
 
 ## Ejecutar
 Requiere Node.js 22 o superior. No necesita instalar paquetes.
@@ -48,7 +48,7 @@ Copyright © 2026 David Ortega Hoyas sobre sus aportaciones originales. [PolyFor
 
 El código es público y consultable, pero esta licencia no es «open source» según la [definición OSI](https://opensource.org/osd), que exige permitir también uso comercial. No se concede exclusividad sobre la idea del juego ni sobre Tux. La licencia obliga a preservar atribución, pero no puede impedir técnicamente que alguien incumpla o cree un fork.
 
-No se aceptan contribuciones externas: [CONTRIBUTING.md](CONTRIBUTING.md). Solo el propietario integra cambios. Flujo `features` → `develop` → `release` → `main`: [convenciones de Git](docs/BRANCHING.md). Versión estable `1.1.0`, aprobada por el propietario.
+No se aceptan contribuciones externas: [CONTRIBUTING.md](CONTRIBUTING.md). Solo el propietario integra cambios. Flujo `features` → `develop` → `release` → `main`: [convenciones de Git](docs/BRANCHING.md). Versión estable `1.1.1`, aprobada por el propietario.
 
 El sonido sintetizado acompaña los cambios de carril, los nuevos récords y cada 500 puntos. Silenciado por defecto, el botón de altavoz junto a pausa recuerda tu elección expresa con la cookie funcional tuxfall_sound (hasta 400 días renovables), independiente del permiso del récord. Al superar una marca previa, el menú final muestra un Tux a cada lado de NUEVO RÉCORD.
  Al alcanzar cada 500 puntos o superar un récord previo positivo, el marcador se detiene visualmente y parpadea durante 1.2 segundos mientras la cuenta real continúa. Con movimiento reducido se omite el parpadeo.
