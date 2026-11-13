@@ -1,11 +1,21 @@
-import {createGame,move,step,currentSpeed,stageAt} from './model.js';
-import {render} from './render.js';
+import {createGame,move,step} from './model.js';
+import {render,paletteAt} from './render.js';
 import {createPersistence} from './persistence.js';
 const $=id=>document.getElementById(id),ctx=$('game').getContext('2d');
 const storage=createPersistence(document,location);
 try{localStorage.removeItem('tuxfall-best');}catch{}
 let game=createGame(),best=storage.readBest(),last=0,recordAtStart=best,recordBeaten=false,noticeUntil=0;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+const touchInput=matchMedia('(any-pointer: coarse)');
+let inputMode;
+function setInputMode(mode){
+ if(inputMode===mode)return;
+ inputMode=mode;$('arcade').dataset.input=mode;
+ $('guide-keyboard').hidden=mode!=='keyboard';$('guide-touch').hidden=mode!=='touch';
+}
+setInputMode(touchInput.matches?'touch':'keyboard');
+touchInput.addEventListener('change',()=>setInputMode(touchInput.matches?'touch':'keyboard'));
+document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.pointerType==='pen')setInputMode('touch');});
 const boostKeys=new Set();let touchBoost=false;
 const playIcon='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 6 27 16 11 26Z" fill="currentColor"/></svg>';
 const retryIcon='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 12a11 11 0 1 0 1 9M26 4v8h-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"/></svg>';
@@ -16,18 +26,20 @@ function updateBoost(){game.boost=game.status==='playing'&&(touchBoost||boostKey
 function sync(){
  const paused=game.status==='paused',over=game.status==='over';
  $('score').textContent=String(game.score).padStart(5,'0');$('best').textContent=String(best).padStart(5,'0');
- $('state').textContent=['PARACAÍDAS ENTERO','PARACAÍDAS RASGADO','CAÍDA LIBRE'][stageAt(game.time)];
- $('speed').textContent=`${Math.round(currentSpeed(game))} PX/S${game.boost?' ↓':''}`;
+ $('menu-best').textContent=String(best).padStart(5,'0');$('menu-score').textContent=String(game.score).padStart(5,'0');
+ $('touch-controls').hidden=inputMode!=='touch'||!['playing','paused'].includes(game.status);
+ const {bg}=paletteAt(game.time);$('arcade').style.setProperty('--sky',`rgb(${bg},${bg},${bg})`);
  $('boost').classList.toggle('active',game.boost);
  $('record-notice').hidden=!(game.status==='playing'&&game.time<noticeUntil);
  if(previousStatus===game.status)return;
  previousStatus=game.status;
+ $('arcade').dataset.status=game.status;
  $('pause').disabled=game.status==='ready'||over;
  $('pause').textContent=paused?'▷':'Ⅱ';$('pause').setAttribute('aria-label',paused?'Reanudar partida':'Pausar partida');
  $('overlay').hidden=game.status==='playing';
- $('overlay-label').textContent=over?(recordBeaten?'NUEVO RÉCORD':'FIN DEL VUELO'):paused?'PAUSA':'LISTO PARA EL SALTO';
- $('overlay-title').textContent=over?String(game.score).padStart(5,'0'):'';$('overlay-title').hidden=!over;
- $('overlay-text').textContent=over?`PUNTOS · MEJOR ${best}`:'';$('overlay-text').hidden=!over;
+ $('overlay-label').textContent=over?(recordBeaten?'NUEVO RÉCORD':'FIN DEL VUELO'):'PAUSA';
+ $('overlay-label').hidden=game.status==='ready';
+ $('menu-score-row').hidden=!over;
  $('start').innerHTML=over?retryIcon:playIcon;
  $('start').setAttribute('aria-label',over?'Reintentar partida':paused?'Reanudar partida':'Iniciar partida');
  $('start').title=$('start').getAttribute('aria-label');
@@ -39,6 +51,7 @@ $('left').addEventListener('click',()=>move(game,-1));$('right').addEventListene
 $('boost').addEventListener('pointerdown',e=>{if(game.status!=='playing')return;e.preventDefault();$('boost').setPointerCapture(e.pointerId);touchBoost=true;updateBoost();});
 for(const event of ['pointerup','pointercancel','lostpointercapture'])$('boost').addEventListener(event,()=>{touchBoost=false;updateBoost();});
 window.addEventListener('keydown',e=>{
+ if(!e.metaKey&&!e.ctrlKey&&!e.altKey)setInputMode('keyboard');
  const key=e.key.toLowerCase();if($('cookie-settings').open)return;
  if(!['arrowleft','arrowright','arrowdown','a','d','s',' ','p','escape'].includes(key))return;
  if(e.target instanceof HTMLButtonElement&&key===' ')return;
