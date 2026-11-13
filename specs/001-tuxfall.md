@@ -11,6 +11,14 @@ Estado: implementable. SpecDD: requisitos → modelo comprobable → interfaz �
 
 El máximo manual de R9 amplía R2 y conserva más de un segundo de anticipación.
 
+## Revisión v3 · foco en el juego
+- R16: la página contiene únicamente el marco de juego. En móvil/tablet táctil ocupa el viewport disponible (`100dvh`, con safe areas); en PC se centra horizontal y verticalmente, ajustándose a la altura sin scroll de página. El canvas conserva píxeles cuadrados y la misma geometría de colisiones. El fondo de cualquier espacio de ajuste sigue el cielo.
+- R17: inicio y fin muestran, en este orden, logo pixelado TuxFall, botón Play/reintento, récord actual y guía de controles. Al terminar se añade la puntuación de esa partida debajo del récord. Pausa usa la misma presentación con Play para continuar. Los valores coinciden con el HUD y se actualizan al reiniciar/superar récord.
+- R18: guía de teclado en PC (←/→ o A/D, mantener ↓/S, P/Esc, espacio); guía táctil en móvil/tablet (botones laterales, mantener ↓ y botón de pausa). Detectar capacidad de entrada y actualizar al usar teclado/táctil, sin inferir dispositivo solo por anchura. Controles táctiles de al menos 48 px, fuera del canvas y visibles durante partida/pausa en modo táctil.
+- R19: HUD superior derecho dentro del marco y fuera del canvas solo durante partida/pausa, sin tapar Tux u obstáculos. Sustituye la posición externa de R10. Eliminar presentación, cabecera y pie externos. Mantener cookies, licencia, autoría y créditos accesibles dentro del menú; consentimiento opcional sin impedir jugar y revocación desde la pausa.
+
+Verificación de v3: revisión de inicio, fin y pausa en escritorio y viewport estrecho; comprobar orden de datos, ausencia de scroll horizontal/vertical externo y canvas sin distorsión. Mantener pruebas de reglas y build. No declarar 1.0.
+
 ## Distribución y mantenimiento
 - R14: proyecto personal de David Ortega Hoyas, con código público bajo PolyForm Noncommercial 1.0.0 y Required Notice de autoría, preservando derechos de terceros. No se aceptan contribuciones externas. No anunciar como open source OSI.
 - R15: `main` principal; `features` desarrollo; `develop` integración; `release` estabilización/publicación. Versión en desarrollo 0.1.0, sin etiqueta 1.0 hasta terminarla. CI en todas las ramas; despliegue manual desde `release`.
