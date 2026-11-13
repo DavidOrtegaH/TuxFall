@@ -105,3 +105,11 @@ Aviso inicial en diálogo modal fuera de main/overlay, conservando los textos y 
 
 42 pruebas y build correctos. Navegador local: overlay con clientHeight = scrollHeight = 676 px mientras el aviso está abierto, sin contenido de cookies en su flujo. Cierre sin decidir devuelve foco a start y vuelve a preguntar al recargar. Rechazo persiste y evita repetir aviso al recargar. La versión 1.0.0 anterior se verificó públicamente mediante version.json con revisión 75ec227765f8c2b682ab0ed1509aca65f094bf37.
 Viewport 320×568: overlay de 320×568, scrollWidth 320 y scrollHeight 568; sin desbordamiento horizontal ni vertical en el menú inicial.
+
+## Revisión 1.1.1: fallo reproducido de caché y reparación
+
+En el navegador público que había cargado 1.0.0 se reprodujo tras actualizar a 1.1.0: Missing translation: es.later. HTML nuevo estaba usando un módulo de traducción antiguo en caché. La partida no arrancaba aunque HTTP y el despliegue fueran correctos.
+
+El build ahora genera nombres con huella común de contenido y versión para todos los recursos, reescribe los enlaces HTML y las importaciones entre módulos y registra la correspondencia en version.json. No requiere vaciar datos del navegador ni borrar récords/preferencias. Las etiquetas 1.0.0 y 1.1.0 se conservan; se publica corrección 1.1.1.
+
+43 pruebas y build correctos: grafo completo servido bajo /TuxFall/, mismas huellas en las importaciones, nueva huella al cambiar recursos y restauración tras retirar la prueba temporal. Navegador local con build de recursos renombrados inicia y pausa sin errores. El navegador público afectado se volverá a comprobar tras desplegar.

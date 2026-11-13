@@ -1,5 +1,10 @@
 # Historial de versiones
 
+## 1.1.1
+
+- Recursos con huella de contenido y módulos enlazados al mismo build. Evita que el navegador mezcle HTML nuevo y JavaScript antiguo en caché.
+- Corrige el arranque tras actualizar desde versiones anteriores, conservando el ajuste de cookies de 1.1.0.
+
 ## 1.1.0
 
 - Aviso inicial de cookies en diálogo independiente: deja de alargar el menú y provocar su barra vertical.
