@@ -27,3 +27,14 @@ Fecha: 13 de noviembre de 2026. Esto no declara una versión estable ni sustituy
 - Favicon SVG inspeccionado con Tux y paracaídas; cuerpo compartido con el sprite jugable. Se regenera durante cada build y se referencia desde juego y política de cookies.
 - Persistencia v2 probada: no leer/escribir récord sin nuevo consentimiento, migrar la cookie anterior solo al aceptar, conservar el récord local sin caducidad de aplicación, renovar cookies dentro del máximo de 400 días y mantener fija la decisión de 720 días. Rechazo/revocación elimina las dos copias, incluso con otra pestaña abierta. Probados fallos de cookies/localStorage y recuperación tras renovar el permiso años después.
 - Navegador local: se pidió la nueva decisión, se recuperó el récord anterior al aceptar y se conservó después de recargar. Cambiar duración no convirtió automáticamente la aceptación antigua en un consentimiento nuevo.
+
+## Revisión v5: desafío e idiomas
+
+30 pruebas correctas, build y comprobaciones sintácticas correctos. Consola del navegador sin errores de la aplicación.
+
+- Nuevos máximos: 340 px/s, 430 al acelerar; filas cada 0.74 s al completar la progresión. Filas de dos pájaros, huecos variables y al menos una vía libre, manteniendo la prohibición de aviones consecutivos. Avión completo visible `(520 - 18 - 174 - 31) / 430 ≈ 0.69 s` antes de colisionar.
+- Simulación de 72 combinaciones (12 semillas × 3 patrones de aceleración × 2 tasas: 30/120 FPS), ocho minutos cada una, con 220 ms de respuesta y 110 ms entre cambios: todas esquivan sin colisión. No es una validación con personas ni garantiza que todos encuentren el mismo desafío.
+- Traducciones con claves y variables equivalentes; verificados los metadatos y claves de las tres páginas de producto. Español por defecto sin crear cookie; elección expresa persistente, recuperación por cookie o almacenamiento local, funcionamiento con almacenamiento bloqueado e independencia del permiso del récord.
+- Navegador: título `TuxFall`; menús sans serif y guía a 14 px. Cambio ES→EN, persistencia tras recargar, diálogo de cookies, fin de partida y páginas de privacidad/créditos en inglés; cambio desde otra página actualiza el menú abierto. Selector operable con flechas de teclado. Cambio de idioma durante pausa conserva la partida y actualiza etiquetas de reanudar. La revisión terminó en español, conservando el récord anterior.
+- Viewport 320×568: marco completo desde (0,0), sin scroll externo ni desbordamiento horizontal del menú; texto de controles de 14 px. El scroll interno permite conservar la legibilidad cuando no cabe todo.
+- Verificados `html.lang` y `translate="no"` con las instrucciones `notranslate`. Son indicaciones al navegador, no un bloqueo de traducción manual o extensiones.

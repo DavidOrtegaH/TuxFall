@@ -132,3 +132,24 @@ dialog .cookie-actions { margin: 24px 0 16px; }
   .menu-footer { margin-top: 8px; gap: 6px 14px; }
 }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+
+/* Keep pixel art in the game; menu instructions use readable system type. */
+.overlay, dialog, .policy-page { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+.overlay-label { font-size: 14px; letter-spacing: .06em; line-height: 1.4; }
+.menu-stats span { font-size: 14px; letter-spacing: .05em; line-height: 1.4; }
+.menu-stats output { font-family: 'Courier New', monospace; }
+.control-guide { font-size: 14px; line-height: 1.7; text-align: center; }
+.control-guide span { color: #35392e; }
+.control-guide kbd { font: 14px/24px 'Courier New', monospace; min-width: 24px; }
+.menu-footer { font-size: 14px; color: #35392e; line-height: 1.5; }
+.menu-footer small { font-size: 12px; letter-spacing: 0; }
+.cookie-banner { font-size: 14px; line-height: 1.6; }
+.cookie-actions button, #cookie-close { font-size: 16px; }
+dialog { font-size: 16px; }
+.language-control { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 14px; color: #22241f; margin: 0 0 18px; }
+.language-control select { font: inherit; background: #fafaf3; color: #22241f; border: 1px solid #abad9f; min-height: 42px; padding: 7px 30px 7px 12px; cursor: pointer; }
+.policy-page { padding: 24px; }
+.policy-page article, .page-language { max-width: 760px; margin: 28px auto; font-size: 16px; line-height: 1.8; }
+.policy-page h1 { font: 700 32px/1.2 system-ui, sans-serif; letter-spacing: -.02em; }
+.policy-page h2 { font-size: 23px; line-height: 1.4; margin-top: 30px; }
+.page-language .language-control { justify-content: flex-end; }
