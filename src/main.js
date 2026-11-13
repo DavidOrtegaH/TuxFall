@@ -87,7 +87,7 @@ for(const event of ['pointerup','pointercancel','lostpointercapture'])$('boost')
 window.addEventListener('keydown',e=>{
  if(e.metaKey||e.ctrlKey||e.altKey)return;
  if(!e.metaKey&&!e.ctrlKey&&!e.altKey)setInputMode('keyboard');
- const key=e.key.toLowerCase();if($('cookie-settings').open||e.target.closest?.('select,input,textarea'))return;
+ const key=e.key.toLowerCase();if($('cookie-settings').open||$('cookie-banner').open||e.target.closest?.('select,input,textarea'))return;
  if(game.status==='playing'&&key.startsWith('arrow')){
   e.preventDefault();e.stopImmediatePropagation();$('game').focus({preventScroll:true});
  }
@@ -105,9 +105,11 @@ window.addEventListener('keyup',e=>{
 },{capture:true});
 function loseFocus(){clearBoost();sound.stop();if(game.status==='playing')pause();}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)loseFocus();});window.addEventListener('blur',loseFocus);
-function chooseCookies(allowed){storage.choose(allowed);if(allowed)best=Math.max(best,storage.readBest());const saved=allowed&&storage.saveBest(best);$('cookie-banner').hidden=true;$('cookie-settings').close();announce(t(allowed?(saved?'savedAnnouncement':'blockedAnnouncement'):'rejectedAnnouncement'));}
+function chooseCookies(allowed){storage.choose(allowed);if(allowed)best=Math.max(best,storage.readBest());const saved=allowed&&storage.saveBest(best);$('cookie-banner').close();$('cookie-settings').close();announce(t(allowed?(saved?'savedAnnouncement':'blockedAnnouncement'):'rejectedAnnouncement'));}
 for(const button of document.querySelectorAll('[data-cookies]'))button.addEventListener('click',()=>chooseCookies(button.dataset.cookies==='yes'));
-$('cookie-banner').hidden=!!storage.consent;
+if(!storage.consent)$('cookie-banner').showModal();
+$('cookie-later').addEventListener('click',()=>$('cookie-banner').close());
+$('cookie-banner').addEventListener('close',()=>$('start').focus({preventScroll:true}));
 $('cookie-open').addEventListener('click',()=>{loseFocus();$('cookie-choice').textContent=t(storage.consent?.choice==='yes'?'cookieOn':'cookieOff');$('cookie-settings').showModal();});
 $('cookie-close').addEventListener('click',()=>$('cookie-settings').close());
 window.addEventListener('pagehide',()=>storage.saveBest(best));
