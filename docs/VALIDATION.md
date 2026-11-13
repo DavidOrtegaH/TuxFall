@@ -58,3 +58,13 @@ Fecha: 13 de noviembre de 2026. Esto no declara una versión estable ni sustituy
 - Iconos SVG compartidos para Play, pausa y reintento, incluido reanudar en el HUD. Eliminado padding que hacía exceder el SVG de 38 px en el botón compacto de 58 px.
 - Navegador: centros del dibujo y SVG de Play coinciden con el botón (desviación x/y = 0 px). Pausa y reintento también dan 0 px en ambos ejes. Verificado además un viewport de 320×568 mediante un marco temporal: botón de 58×58 e icono centrado a 0 px. Marco de QA eliminado tras comprobarlo.
 - Las 30 pruebas pasan, comprobación sintáctica y build correctos. Conservados nombres accesibles, traducciones y lógica de juego.
+
+## Revisión v9: felicitación y efectos de sonido
+
+- «NUEVO RÉCORD» sustituye «TU RÉCORD» al superar una marca previa positiva, con tres Tux pixelados a modo de exclamación y equivalentes ingleses. Se conserva la puntuación de la partida debajo.
+- Tres sonidos sintetizados con Web Audio: cambio efectivo de carril, récord una vez por partida e hitos de 1000 puntos. Si coinciden récord e hito, el segundo se retrasa para distinguirlos. Sin descargas, dependencias ni nuevas cookies.
+- Audio activado al iniciar mediante gesto; silencio conservado entre reintentos durante la visita. Pausa, pérdida de foco y silencio cancelan notas activas y pendientes. Sin Web Audio el juego funciona y el control indica indisponibilidad.
+- 33 pruebas y build correctos. Nuevas pruebas comprueban umbrales estrictos, hitos sin repetición, programación de notas distintas, audio diferido, cancelación y fallo seguro.
+- Navegador: botón de sonido de 48×48 a 12 px de pausa, cambio de etiqueta/icono al silenciar y consola sin errores. El récord de prueba se aísla del almacenamiento del usuario.
+- Flecha de reintento con extremo abierto y hueco visible respecto al final del arco.
+- Revisión visual aislada: fin de partida con NUEVO RÉCORD y exactamente tres Tux; al reintentar desaparecen y vuelve TU RÉCORD. Conservados los 1761 puntos existentes del usuario; archivos temporales retirados.
