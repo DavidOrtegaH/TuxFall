@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {paletteAt,render} from '../src/render.js';import {createGame} from '../src/model.js';
+test('R11: palette changes continuously at former inversion thresholds and loop boundary',()=>{for(const time of [0,15,30,45,60]){const a=paletteAt(time-.001),b=paletteAt(time+.001);assert.ok(Math.abs(a.bg-b.bg)<.03);assert.ok(Math.abs(a.fg-b.fg)<.03);}assert.equal(paletteAt(0).bg,239);assert.equal(paletteAt(30).bg,28);});
+test('R11: day, twilight and night render all obstacle and parachute states',()=>{const ctx=new Proxy({},{get(target,key){return target[key]??(()=>{});},set(target,key,value){target[key]=value;return true;}});for(const time of [0,15,30,45,55,60])for(const reduced of [false,true])assert.doesNotThrow(()=>render(ctx,{...createGame(),time,obstacles:[{type:'bird',lane:0,y:300},{type:'plane',lane:1,y:450}]},reduced));});
