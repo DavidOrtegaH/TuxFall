@@ -46,4 +46,4 @@ El código es público y consultable, pero esta licencia no es «open source» s
 
 No se aceptan contribuciones externas: [CONTRIBUTING.md](CONTRIBUTING.md). Solo el propietario integra cambios. Flujo `features` → `develop` → `release` → `main`: [convenciones de Git](docs/BRANCHING.md). Versión en desarrollo `0.1.0`; 1.0 se publicará cuando esté finalizada.
 
-El sonido sintetizado acompaña los cambios de carril, los nuevos récords y cada 1000 puntos. El botón de altavoz junto a pausa permite silenciarlo durante la visita sin crear cookies. Al superar una marca previa, el menú final muestra NUEVO RÉCORD con tres Tux pixelados de felicitación.
+El sonido sintetizado acompaña los cambios de carril, los nuevos récords y cada 1000 puntos. Silenciado por defecto, el botón de altavoz junto a pausa recuerda tu elección expresa con la cookie funcional tuxfall_sound (hasta 400 días renovables), independiente del permiso del récord. Al superar una marca previa, el menú final muestra un Tux a cada lado de NUEVO RÉCORD.

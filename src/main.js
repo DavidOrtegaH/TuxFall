@@ -4,6 +4,7 @@ import {createPersistence} from './persistence.js';
 import {initializeLanguage} from './i18n.js';
 import {playIcon,pauseIcon,retryIcon,soundIcon,mutedIcon} from './icons.js';
 import {createSoundEngine} from './sound.js';
+import {createSoundPreference} from './sound-preference.js';
 import {scoreFeedback} from './feedback.js';
 import {tuxExclamation} from './celebration.js';
 const $=id=>document.getElementById(id),ctx=$('game').getContext('2d');
@@ -12,8 +13,10 @@ try{deviceStorage=localStorage;}catch{}
 const i18n=initializeLanguage(document,location,deviceStorage,()=>{previousStatus=undefined;sync();$('cookie-choice').textContent=t(storage.consent?.choice==='yes'?'cookieOn':'cookieOff');announce(t('languageChanged'));});
 const t=(key,values)=>i18n.t(key,values);
 const storage=createPersistence(document,location,()=>Date.now(),deviceStorage);
-const sound=createSoundEngine();
-$('record-celebration').innerHTML=tuxExclamation.repeat(3);
+const soundPreference=createSoundPreference(document,location);
+const sound=createSoundEngine({initialEnabled:soundPreference.value});
+$('record-tux-left').innerHTML=tuxExclamation;
+$('record-tux-right').innerHTML=tuxExclamation;
 try{localStorage.removeItem('tuxfall-best');}catch{}
 let game=createGame(),best=storage.readBest(),last=0,recordAtStart=best,recordBeaten=false,noticeUntil=0;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -57,7 +60,7 @@ function sync(){
  $('overlay-label').textContent=t(over?'endLabel':paused?'paused':'playAction');
  $('overlay-label').hidden=game.status==='playing';
  $('menu-best-label').textContent=t(over&&recordBeaten?'newRecordLabel':'yourBest');
- $('record-celebration').hidden=!over||!recordBeaten;
+ $('record-tux-left').hidden=$('record-tux-right').hidden=!over||!recordBeaten;
  $('menu-score-row').hidden=!over;
  $('start').innerHTML=over?retryIcon:playIcon;
  $('start').setAttribute('aria-label',t(over?'retryGame':paused?'resumeGame':'startGame'));
@@ -66,7 +69,7 @@ function sync(){
 function start(){sound.stop();void sound.unlock();if(game.status==='paused')game.status='playing';else{game=createGame();game.status='playing';recordAtStart=best;recordBeaten=false;noticeUntil=0;}clearBoost();last=performance.now();sync();announce(t('playingAnnouncement'));$('start').blur();}
 function pause(){clearBoost();sound.stop();if(game.status==='playing'){game.status='paused';announce(t('pausedAnnouncement'));}else if(game.status==='paused'){game.status='playing';last=performance.now();void sound.unlock();}sync();}
 $('start').addEventListener('click',start);$('pause').addEventListener('click',pause);
-$('sound').addEventListener('click',()=>{sound.setEnabled(!sound.enabled);syncSound();});
+$('sound').addEventListener('click',()=>{sound.setEnabled(!sound.enabled);soundPreference.set(sound.enabled);if(sound.enabled)void sound.play('lane');syncSound();});
 $('left').addEventListener('click',()=>changeLane(-1));$('right').addEventListener('click',()=>changeLane(1));
 $('boost').addEventListener('pointerdown',e=>{if(game.status!=='playing')return;e.preventDefault();$('boost').setPointerCapture(e.pointerId);touchBoost=true;updateBoost();});
 for(const event of ['pointerup','pointercancel','lostpointercapture'])$('boost').addEventListener(event,()=>{touchBoost=false;updateBoost();});
