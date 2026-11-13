@@ -2,6 +2,8 @@
 
 Juego web monocromo de caída libre con Tux. Tres carriles, pájaros, aviones, paracaídas degradable y ciclo día/noche.
 
+Repositorio oficial: https://github.com/DavidOrtegaH/TuxFall. `main` es la rama principal y contiene por ahora la base legal y las normas. El prototipo `0.1.0` está en [`features`](https://github.com/DavidOrtegaH/TuxFall/tree/features) y su integración en [`develop`](https://github.com/DavidOrtegaH/TuxFall/tree/develop). Para ejecutarlo, usar una de esas ramas. `release` queda preparada para estabilizar versiones; todavía no hay una entrega 1.0 ni despliegue público del juego.
+
 ## Ejecutar
 Requiere Node.js 22 o superior. No necesita instalar paquetes.
 
@@ -22,9 +24,9 @@ JavaScript ES modules, Canvas 2D y CSS; herramientas y pruebas nativas de Node. 
 La fuente de comportamiento es [specs/001-tuxfall.md](specs/001-tuxfall.md). Flujo: actualizar requisitos y criterios → modificar modelo → verificar pruebas → renderizado y comprobación visual. Las pruebas citan los identificadores de requisito. No se requiere plataforma de SpecDD externa.
 
 ## GitHub Pages
-El workflow prueba y construye en las cuatro ramas y en PRs; despliega `dist` exclusivamente mediante ejecución manual desde `release`. Crear un repositorio público, añadirlo como remote y subir las ramas. La predeterminada es `main`. En Settings → Pages → Build and deployment, seleccionar GitHub Actions. GitHub Pages admite repositorios públicos con GitHub Free: https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
+El workflow del prototipo prueba y construye en las cuatro ramas y en PRs; despliega `dist` exclusivamente mediante ejecución manual desde `release`, una vez que esa rama reciba una versión finalizada con el workflow. Las cuatro ramas ya existen en GitHub y la predeterminada es `main`. Para el primer despliegue, en Settings → Pages → Build and deployment, seleccionar GitHub Actions. GitHub Pages admite repositorios públicos con GitHub Free: https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
 
-Todas las rutas de recursos son relativas para funcionar en `/TuxFall/`. El workflow está preparado; crear el repositorio y habilitar Pages son pasos de configuración de la cuenta que no se han realizado automáticamente.
+Todas las rutas de recursos son relativas para funcionar en `/TuxFall/`. El repositorio está creado y sincronizado. Pages sigue sin publicar: se habilitará cuando exista una versión estable lista para desplegar.
 
 ## Revisión manual
 Comprobar: controles táctiles y teclado; pausa al cambiar de pestaña; aspecto del paracaídas a 0/25/50 segundos; ciclo completo de 60 segundos; cambio contiguo con impulso contrario; récord al recargar; pantalla estrecha y preferencia de movimiento reducido. Las pruebas del modelo no reemplazan esta revisión visual.
