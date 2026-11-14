@@ -8,6 +8,7 @@ import {createSoundPreference} from './sound-preference.js';
 import {scoreFeedback} from './feedback.js';
 import {createScoreDisplay} from './score-display.js';
 import {tuxExclamation} from './celebration.js';
+import {bindTouchControls} from './touch-controls.js';
 const $=id=>document.getElementById(id),ctx=$('game').getContext('2d');
 let deviceStorage=null;
 try{deviceStorage=localStorage;}catch{}
@@ -37,7 +38,7 @@ const boostKeys=new Set();let touchBoost=false;
 let previousStatus,soundState,renderedStatus,renderedReduced;
 function setText(id,value){const node=$(id);if(node.textContent!==value)node.textContent=value;}
 function announce(text){$('announcement').textContent=text;}
-function clearBoost(){boostKeys.clear();touchBoost=false;game.boost=false;}
+function clearBoost(){boostKeys.clear();touchControls.reset();touchBoost=false;game.boost=false;}
 function updateBoost(){game.boost=game.status==='playing'&&(touchBoost||boostKeys.size>0);}
 function syncSound(){
  const state=`${sound.supported}/${sound.enabled}/${i18n.language}`;if(state===soundState)return;soundState=state;
@@ -81,9 +82,8 @@ function start(){sound.stop();void sound.unlock();if(game.status==='paused')game
 function pause(){clearBoost();sound.stop();if(game.status==='playing'){game.status='paused';announce(t('pausedAnnouncement'));}else if(game.status==='paused'){game.status='playing';last=performance.now();void sound.unlock();}sync();}
 $('start').addEventListener('click',start);$('pause').addEventListener('click',pause);
 $('sound').addEventListener('click',()=>{sound.setEnabled(!sound.enabled);soundPreference.set(sound.enabled);if(sound.enabled)void sound.play('lane');syncSound();});
-$('left').addEventListener('click',()=>changeLane(-1));$('right').addEventListener('click',()=>changeLane(1));
-$('boost').addEventListener('pointerdown',e=>{if(game.status!=='playing')return;e.preventDefault();$('boost').setPointerCapture(e.pointerId);touchBoost=true;updateBoost();});
-for(const event of ['pointerup','pointercancel','lostpointercapture'])$('boost').addEventListener(event,()=>{touchBoost=false;updateBoost();});
+const touchControls=bindTouchControls({left:$('left'),right:$('right'),boost:$('boost'),
+ isPlaying:()=>game.status==='playing',move:changeLane,setBoost:value=>{touchBoost=value;updateBoost();}});
 window.addEventListener('keydown',e=>{
  if(e.metaKey||e.ctrlKey||e.altKey)return;
  if(!e.metaKey&&!e.ctrlKey&&!e.altKey)setInputMode('keyboard');

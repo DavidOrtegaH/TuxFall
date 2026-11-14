@@ -1,5 +1,12 @@
 # Historial de versiones
 
+## 1.1.2
+
+- Controles táctiles sin selección de flechas, arrastre ni menú contextual. No se solicita vibración.
+- Zona pulsable de cada control ampliada 54 px hacia arriba durante la partida, sin cambiar su aspecto.
+- Cambio de carril al pulsar, sin duplicarlo al soltar. Aceleración multitáctil con limpieza al cancelar, perder captura o pausar.
+- Se conservan las reglas, la dificultad y los controles de teclado.
+
 ## 1.1.1
 
 - Recursos con huella de contenido y módulos enlazados al mismo build. Evita que el navegador mezcle HTML nuevo y JavaScript antiguo en caché.

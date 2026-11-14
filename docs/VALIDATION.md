@@ -115,3 +115,12 @@ El build ahora genera nombres con huella común de contenido y versión para tod
 43 pruebas y build correctos: grafo completo servido bajo /TuxFall/, mismas huellas en las importaciones, nueva huella al cambiar recursos y restauración tras retirar la prueba temporal. Navegador local con build de recursos renombrados inicia y pausa sin errores. El navegador público afectado se volverá a comprobar tras desplegar.
 
 Verificación pública completada en el navegador que sufrió el error: al recargar carga main.973b6023892e5714.js, inicia, cambia de carril y pausa sin nuevos errores. Todos los recursos con huella responden 200. version.json identifica 1.1.1, revisión 7d8a3d4ef8fb6cc0c6cfa7501bbe4475b4e48861. Run de publicación correcto: https://github.com/DavidOrtegaH/TuxFall/actions/runs/43524937457. Releases 1.0.0, 1.1.0 y 1.1.1 publicadas; ninguna etiqueta reescrita.
+
+## Revisión 1.1.2: controles táctiles y zona de pulsación
+
+- Botones con geometría visible conservada (54 px de alto). Un pseudoelemento transparente amplía su área 54 px hacia arriba durante playing: 108 px de alto total, ancho y borde inferior iguales. No se aplica en pausa.
+- Touch-action none, user-select none con prefijo WebKit, touch-callout none y prevención de selectstart/contextmenu en controles. El juego no invoca vibración; no se puede garantizar desactivar la respuesta háptica que el sistema operativo imponga fuera de la página.
+- Carril en pointerdown, un movimiento por contacto y sin duplicación en click. Click de teclado/tecnologías de asistencia conservado. Boost usa un conjunto de punteros y limpia al soltar/cancelar/perder captura, pausar o perder foco.
+- 46 pruebas y build correctos. Casos añadidos: límites, clic posterior, teclado, botón secundario, varios dedos, cancelación, captura perdida/fallida, reset y partida pausada.
+- Navegador con modo táctil forzado en una página temporal: botones siguen midiendo 54 px. Hit-testing a 1, 27 y 54 px por encima apunta a cada botón; a 55 px vuelve al canvas. Pulsación real a 27 px por encima de izquierda/derecha cambia exactamente un carril. En pausa no hay pseudoelemento ni captura por encima.
+- Viewport 320×568: botón de boost de 88×54, zona extra apunta a boost. Pulsación sostenida de 700 ms desde esa zona produce boost=true en pointerdown y false en pointerup. No se han probado teléfonos físicos ni su motor de vibración. La página de QA aislaba obstáculos/guardado; sus archivos se eliminaron y no forman parte del build público.
