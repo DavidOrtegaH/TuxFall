@@ -87,6 +87,11 @@ Fuentes de R23: límite de cookies de Chrome (https://developer.chrome.com/blog/
 ## Revisión v17 · coherencia de caché (1.1.1)
 - R57: tras reproducir en la web pública HTML 1.1.0 con un módulo i18n antiguo (Missing translation: es.later), generar recursos con nombres que incluyan una huella de contenido del build y reescribir tanto HTML como importaciones JS. Todos los módulos de un documento deben pertenecer al mismo build. Mantener versiones publicadas y etiquetas inmutables; corrección 1.1.1. Verificar dos builds con huellas distintas y sus enlaces, más recarga real en el navegador previamente afectado.
 
+## Revisión v18 · controles táctiles (1.1.2)
+- R58: conservar exactamente la geometría y aspecto de los botones. Durante la partida ampliar su zona de impacto una altura de botón hacia arriba: altura total doble, mismo ancho y borde inferior. No ampliar sobre el menú en pausa ni interferir con pausa/sonido.
+- R59: evitar selección de texto, arrastre, callout y menú contextual de los controles táctiles. No invocar vibración. Suprimir gestos nativos que puedan originar respuesta háptica; no prometer desactivar ajustes hápticos del sistema operativo.
+- R60: cambiar un solo carril contiguo en pointerdown, sin duplicarlo por click posterior ni repetir al mantener. Conservar activación por teclado/tecnologías de asistencia. Aceleración sostenida por punteros activos; soltar, cancelar, perder captura, pausar o perder foco debe limpiar la entrada. Probar multitáctil, límites y botones con partida detenida. No cambiar dificultad ni reglas del modelo.
+
 ## Distribución y mantenimiento
 - R14: proyecto personal de David Ortega Hoyas, con código público bajo PolyForm Noncommercial 1.0.0 y Required Notice de autoría, preservando derechos de terceros. No se aceptan contribuciones externas. No anunciar como open source OSI.
 - R15: `main` principal; `features` desarrollo; `develop` integración; `release` estabilización/publicación. Versión en desarrollo 0.1.0, sin etiqueta 1.0 hasta terminarla. CI en todas las ramas; despliegue manual desde `release`.

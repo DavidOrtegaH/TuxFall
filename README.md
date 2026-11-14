@@ -78,7 +78,7 @@ No hay cuentas, publicidad, analítica ni clasificación en un servidor. Más in
 
 El flujo es `features` → `develop` → `release` → `main`. Los commits siguen Conventional Commits en inglés. GitHub Actions ejecuta las pruebas y el build; los cambios de `release` se publican automáticamente en GitHub Pages. También se puede lanzar el despliegue manualmente desde esa rama.
 
-La versión estable actual es **1.1.1**. Las versiones anteriores se conservan en [Releases](https://github.com/DavidOrtegaH/TuxFall/releases), y la versión servida se puede consultar en [version.json](https://davidortegah.github.io/TuxFall/version.json).
+La versión estable actual es **1.1.2**. Las versiones anteriores se conservan en [Releases](https://github.com/DavidOrtegaH/TuxFall/releases), y la versión servida se puede consultar en [version.json](https://davidortegah.github.io/TuxFall/version.json).
 
 La especificación está en [specs/001-tuxfall.md](specs/001-tuxfall.md), las comprobaciones en [docs/VALIDATION.md](docs/VALIDATION.md) y las convenciones de ramas en [docs/BRANCHING.md](docs/BRANCHING.md). La [auditoría previa a la publicación](docs/AUDIT-2026-11-13.md) recoge las revisiones de seguridad, SEO, accesibilidad y sus limitaciones.
 
